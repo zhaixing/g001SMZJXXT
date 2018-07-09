@@ -65,6 +65,7 @@ public class FragmentOne extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.btn_marking: {
                 Intent intent = new Intent(getActivity(), ExamRoomActivity.class);
+                //System.out.println("dfdfd");
                 startActivity(intent);
                 break;
             }
