@@ -45,6 +45,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 case R.id.navigation_mine:
                     myViewPager.setCurrentItem(2);
                     return true;
+                case R.id.navigation_me:
+                    myViewPager.setCurrentItem(3);
+                    return true;
             }
             return false;
         }
@@ -63,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         fragments.add(new FragmentOne());
         fragments.add(new FragmentTwo());
         fragments.add(new FragmentThree());
+        fragments.add(new FragmentMe());
         adapter = new TabFragmentPagerAdapter(getSupportFragmentManager(), fragments);
         myViewPager.setAdapter(adapter);
         myViewPager.setCurrentItem(0);  //初始化显示第一个页面
@@ -104,6 +108,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 return true;
             case R.id.navigation_mine:
                 myViewPager.setCurrentItem(2);
+                return true;
+            case R.id.navigation_me:
+                myViewPager.setCurrentItem(3);
                 return true;
         }
         return false;
