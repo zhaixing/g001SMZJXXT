@@ -3,8 +3,11 @@
     </string><string name="VideoView_error_title">Cannot play video</string><string name="VideoView_error_text_invalid_progressive_playback">Sorry, this video is not valid for streaming to
         this device.
     </string><string name="VideoView_error_text_unknown">Sorry, this video cannot be played.</string><string name="VideoView_error_button">OK</string><string name="mediacontroller_play_pause">Play/Pause</string></file><file path="D:\Android\exam_app\vitamio\res\values\styles.xml" qualifiers=""><style name="MediaController_SeekBar" parent="android:Widget.SeekBar">
-        <item name="android:progressDrawable">@drawable/scrubber_progress_horizontal_holo_dark</item>
-        <item name="android:indeterminateDrawable">@drawable/scrubber_progress_horizontal_holo_dark</item>
+        <item name="android:progressDrawable">@drawable/scrubber_progress_horizontal_holo_dark
+        </item>
+        <item name="android:indeterminateDrawable">
+            @drawable/scrubber_progress_horizontal_holo_dark
+        </item>
         <item name="android:minHeight">13dip</item>
         <item name="android:maxHeight">13dip</item>
         <item name="android:thumb">@drawable/scrubber_control_selector_holo</item>
