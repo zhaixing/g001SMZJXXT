@@ -45,8 +45,8 @@
             android:label="@string/title_activity_person"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activitys.Login.Main2Activity"
-            android:label="@string/title_activity_main2"
+            android:name=".Activitys.Login.SettingActivity"
+            android:label="@string/title_activity_setting"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

@@ -10,11 +10,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.xcf.admin.couldclass.Activitys.Login.PersonActivity;
+import com.xcf.admin.couldclass.Activitys.Login.SettingActivity;
 import com.xcf.admin.couldclass.R;
 
 public class FragmentMe extends Fragment implements View.OnClickListener {
 
     Button btn_user;
+    Button btn_setting;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanseState) {
@@ -30,6 +32,9 @@ public class FragmentMe extends Fragment implements View.OnClickListener {
     private void SetListener() {
         btn_user = getActivity().findViewById(R.id.btn_user);
         btn_user.setOnClickListener(this);
+
+        btn_setting = getActivity().findViewById(R.id.btn_setting);
+        btn_setting.setOnClickListener(this);
     }
 
     @Override
@@ -38,6 +43,12 @@ public class FragmentMe extends Fragment implements View.OnClickListener {
             case R.id.btn_user: {
                 Intent intent = new Intent(getActivity(), PersonActivity.class);
                 startActivity(intent);
+                break;
+            }
+            case R.id.btn_setting: {
+                Intent intent = new Intent(getActivity(), SettingActivity.class);
+                startActivity(intent);
+                break;
             }
         }
     }
