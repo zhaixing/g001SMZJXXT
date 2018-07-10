@@ -1,5 +1,7 @@
 package com.xcf.admin.couldclass.MyContext;
 
+import android.util.Log;
+
 import com.xcf.admin.couldclass.handle.persistentcookiejar.ClearableCookieJar;
 
 import okhttp3.OkHttpClient;
@@ -37,6 +39,7 @@ public class HttpHelper {
 
 
     public Retrofit getRetrofitStr() {
+        Log.e(this.getClass().toString(), "getRetrofitStr: pos3>>" + retrofitStr);
         return retrofitStr;
     }
 
