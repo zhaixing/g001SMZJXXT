@@ -133,6 +133,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case 2:
                 navigation.setSelectedItemId(R.id.navigation_mine);
                 break;
+            case 3:
+                navigation.setSelectedItemId(R.id.navigation_me);
+                break;
         }
     }
 
