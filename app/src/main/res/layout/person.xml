@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/me_fragment"
+    android:id="@+id/person"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -129,9 +129,9 @@
                     android:id="@+id/default_user_image"
                     android:layout_width="99dp"
                     android:layout_height="match_parent"
-                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentTop="true"
-                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="20dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_action_defaulthead"
                     app:riv_border_color="@android:color/white"
@@ -139,12 +139,12 @@
                     app:riv_oval="true" />
 
                 <Button
-                    android:id="@+id/btn_user"
+                    android:id="@+id/btn_user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:layout_marginStart="99dp"
+                    android:layout_marginStart="29dp"
                     android:background="@android:color/transparent"
                     android:text="姓名"
                     android:textColor="@color/colorPrimaryDark" />
@@ -159,22 +159,22 @@
                 android:clickable="true">
 
                 <TextView
-                    android:id="@+id/iv_my_favorite"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tv_user_name"
+                    android:layout_width="179dp"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="27dp"
-                    android:text="部门:"
-                    android:textAlignment="center" />
+                    android:layout_marginEnd="20dp"
+                    android:text="姓名"
+                    android:textAlignment="textEnd" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="74dp"
-                    android:text="无部门"
+                    android:layout_marginStart="34dp"
+                    android:text="姓名"
                     android:textColor="@color/font_normal"
                     android:textSize="16sp" />
             </RelativeLayout>
@@ -192,13 +192,14 @@
                 android:clickable="true">
 
                 <TextView
-                    android:id="@+id/iv_my_work"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tv_user_zhanghao"
+                    android:layout_width="176dp"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="27dp"
-                    android:text="专业:" />
+                    android:layout_marginEnd="22dp"
+                    android:text="账号"
+                    android:textAlignment="textEnd" />
 
 
                 <TextView
@@ -206,8 +207,42 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="74dp"
-                    android:text="无专业"
+                    android:layout_marginStart="34dp"
+                    android:text="账号"
+                    android:textColor="@color/font_normal"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line_bg" />
+
+            <RelativeLayout
+                android:id="@+id/view_my_zwei"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:clickable="true">
+
+                <TextView
+                    android:id="@+id/tv_user_idcard"
+                    android:layout_width="173dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="23dp"
+                    android:text="身份证号"
+                    android:textAlignment="textEnd" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="33dp"
+                    android:text="身份证号"
                     android:textColor="@color/font_normal"
                     android:textSize="16sp" />
             </RelativeLayout>
@@ -225,13 +260,14 @@
                 android:clickable="true">
 
                 <TextView
-                    android:id="@+id/iv_my_zhiwei"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tv_user_phoneno"
+                    android:layout_width="170dp"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="27dp"
-                    android:text="职位:" />
+                    android:layout_marginEnd="22dp"
+                    android:text="手机号"
+                    android:textAlignment="textEnd" />
 
 
                 <TextView
@@ -239,42 +275,12 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="74dp"
-                    android:text="无职位"
+                    android:layout_marginStart="33dp"
+                    android:text="手机号"
                     android:textColor="@color/font_normal"
                     android:textSize="16sp" />
             </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/view_setting"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/white"
-                android:clickable="true">
-
-                <ImageView
-                    android:id="@+id/iv_my_setting"
-                    android:layout_width="28dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginStart="32dp"
-                    android:src="@drawable/ic_action_gear" />
-
-                <Button
-                    android:id="@+id/btn_setting"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:layout_width="305dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="76dp"
-                    android:text="设置"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/font_normal"
-                    android:textSize="16sp" />
-            </RelativeLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </FrameLayout>

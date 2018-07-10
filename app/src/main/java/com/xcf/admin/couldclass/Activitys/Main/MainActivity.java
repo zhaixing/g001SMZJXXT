@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.converfactory.StringConverterFactory;
+import com.xcf.admin.couldclass.MyContext.BottomNavigationViewHelper;
 import com.xcf.admin.couldclass.MyContext.HttpHelper;
 import com.xcf.admin.couldclass.MyContext.MyApp;
 import com.xcf.admin.couldclass.R;
@@ -72,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         myViewPager.setCurrentItem(0);  //初始化显示第一个页面
 
         navigation.setOnNavigationItemSelectedListener(this);
+        BottomNavigationViewHelper.disableShiftMode(navigation);
         myViewPager.addOnPageChangeListener(this);
         InitHttp();
     }
@@ -132,6 +134,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 break;
             case 2:
                 navigation.setSelectedItemId(R.id.navigation_mine);
+                break;
+            case 3:
+                navigation.setSelectedItemId(R.id.navigation_me);
                 break;
         }
     }
