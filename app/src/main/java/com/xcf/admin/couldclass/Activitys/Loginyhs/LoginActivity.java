@@ -59,8 +59,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login_register: {
-                System.out.println("pos2");
-                Log.i(this.getClass().toString(), "onClick: pos1");
                 UserService u = HttpHelper.getInstance().getRetrofitStr().create(UserService.class);
                 Call<String> call = u.Login(Usercode.getText().toString(), pwd.getText().toString(), "");
                 call.enqueue(new Callback<String>() {
