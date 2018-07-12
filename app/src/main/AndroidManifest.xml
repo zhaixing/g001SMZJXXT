@@ -38,6 +38,7 @@
             android:launchMode="singleTop" />
         <activity android:name=".Activitys.Answer.AnswerActivity" />
         <activity android:name=".Activitys.Live.LiveActivity" />
+
         <activity
             android:name="io.vov.vitamio.activity.InitActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
@@ -55,6 +56,7 @@
             android:name=".Activitys.Personal.SettingActivity"
             android:label="@string/title_activity_setting"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".Activitys.Rank.RankActivity" />
     </application>
 
 </manifest>

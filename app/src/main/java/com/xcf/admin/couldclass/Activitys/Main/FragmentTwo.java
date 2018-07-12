@@ -15,5 +15,4 @@ public class FragmentTwo extends Fragment {
         // Inflate the layout for this fragment
         return null;
     }
-
 }

@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         myViewPager = findViewById(R.id.myViewPager);
         //把Fragment添加到List集合里面
         fragments = new ArrayList<>();
-        fragments.add(new FragmentOne());
+        fragments.add(new FragmentOne_yhs());
         fragments.add(new FragmentTwo());
         fragments.add(new FragmentThree());
         fragments.add(new FragmentMe());
