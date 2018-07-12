@@ -13,7 +13,6 @@ import com.xcf.admin.couldclass.MyContext.BottomNavigationViewHelper;
 import com.xcf.admin.couldclass.MyContext.HttpHelper;
 import com.xcf.admin.couldclass.MyContext.MyApp;
 import com.xcf.admin.couldclass.R;
-import com.xcf.admin.couldclass.SysApplication.SysApplication;
 import com.xcf.admin.couldclass.handle.persistentcookiejar.PersistentCookieJar;
 import com.xcf.admin.couldclass.handle.persistentcookiejar.cache.SetCookieCache;
 import com.xcf.admin.couldclass.handle.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
@@ -44,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 case R.id.navigation_friends:
                     myViewPager.setCurrentItem(1);
                     return true;
-                case R.id.navigation_mine:
+                case R.id.navigation_exam:
                     myViewPager.setCurrentItem(2);
                     return true;
                 case R.id.navigation_me:
@@ -67,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         fragments = new ArrayList<>();
         fragments.add(new FragmentOne_yhs());
         fragments.add(new FragmentTwo());
-        fragments.add(new FragmentThree());
+        fragments.add(new FragmentExam());
         fragments.add(new FragmentMe());
         adapter = new TabFragmentPagerAdapter(getSupportFragmentManager(), fragments);
         myViewPager.setAdapter(adapter);
@@ -77,7 +76,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         BottomNavigationViewHelper.disableShiftMode(navigation);
         myViewPager.addOnPageChangeListener(this);
         InitHttp();
-        SysApplication.getInstance().addActivity(this);
     }
 
     public void InitHttp() {
@@ -110,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case R.id.navigation_friends:
                 myViewPager.setCurrentItem(1);
                 return true;
-            case R.id.navigation_mine:
+            case R.id.navigation_exam:
                 myViewPager.setCurrentItem(2);
                 return true;
             case R.id.navigation_me:
@@ -135,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 navigation.setSelectedItemId(R.id.navigation_friends);
                 break;
             case 2:
-                navigation.setSelectedItemId(R.id.navigation_mine);
+                navigation.setSelectedItemId(R.id.navigation_exam);
                 break;
             case 3:
                 navigation.setSelectedItemId(R.id.navigation_me);

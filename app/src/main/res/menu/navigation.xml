@@ -12,7 +12,7 @@
         android:title="练习" />
 
     <item
-        android:id="@+id/navigation_mine"
+        android:id="@+id/navigation_exam"
         android:icon="@drawable/ic_action_document"
         android:title="考试" />
 

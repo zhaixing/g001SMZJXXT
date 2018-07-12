@@ -16,4 +16,14 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- 使用Style设置滚动条样式-->
+    <style name="myTabLayout" parent="Widget.Design.TabLayout">
+        <!--tab的布局-->
+        <item name="tabGravity">fill</item>
+        <!--tab下面的滚动条的颜色-->
+        <item name="tabIndicatorColor">#ff3355</item>
+        <!--将tab设置成固定-->
+        <item name="tabMode">fixed</item>
+    </style>
 </resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="categary">
+        <item>分类</item>
+        <item>运输</item>
+        <item>车辆</item>
+        <item>电务</item>
+        <item>工务</item>
+        <item>供电</item>
+    </string-array>
+    <string-array name="done">
+        <item>全部</item>
+        <item>已完成</item>
+        <item>正进行</item>
+        <item>已结束</item>
+    </string-array>
+    <string-array name="timeAsc">
+        <item>正序</item>
+        <item>倒序</item>
+    </string-array>
+</resources>

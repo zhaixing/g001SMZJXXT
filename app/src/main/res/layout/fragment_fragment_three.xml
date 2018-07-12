@@ -43,7 +43,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:background="@mipmap/btn"
             android:text="登录"
             android:textSize="20sp" />
 
@@ -51,7 +50,6 @@
             android:id="@+id/btn_reg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@mipmap/btn"
             android:text="注册"
             android:textSize="20sp" />
     </LinearLayout>
