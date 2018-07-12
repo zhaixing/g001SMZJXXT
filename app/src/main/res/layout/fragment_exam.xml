@@ -1,31 +1,62 @@
-<?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activitys.Loginyhs.FragmentExam">
+    android:orientation="horizontal"
+    android:padding="8dp"
+    tools:context=".Activitys.Main.FragmentExam">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="8dp">
+        android:layout_height="match_parent"
+        android:layout_gravity="left|top"
+        android:background="@color/bacground"
+        android:overScrollMode="never"
+        android:scrollbars="none">
 
-        <Spinner
-            android:id="@+id/spin_province"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:entries="@array/languages" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/white"
+            android:visibility="visible">
 
-        <Spinner
-            android:id="@+id/spin_city"
-            android:layout_width="112dp"
-            android:layout_height="wrap_content" />
+            <Spinner
+                android:id="@+id/spin_province"
+                android:layout_width="125dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="0dp"
+                android:dropDownWidth="match_parent"
+                android:entries="@array/categary"
+                android:textAlignment="center" />
 
-        <Spinner
-            android:id="@+id/spin_county"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+            <Spinner
+                android:id="@+id/spin_city"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:dropDownWidth="match_parent"
+                android:entries="@array/done"
+                android:textAlignment="center"
+                android:theme="?attr/dropDownListViewStyle" />
+
+            <Spinner
+                android:id="@+id/spin_county"
+                android:layout_width="125dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:dropDownWidth="match_parent"
+                android:entries="@array/timeAsc"
+                android:textAlignment="center" />
+        </RelativeLayout>
+
+        <com.lidan.xiao.danquestion.view.MyListView
+            android:id="@+id/lv_que"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </android.support.v4.widget.NestedScrollView>
+
+
 </FrameLayout>

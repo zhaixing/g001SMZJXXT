@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.converfactory.StringConverterFactory;
-import com.xcf.admin.couldclass.Activitys.Loginyhs.FragmentExam;
 import com.xcf.admin.couldclass.MyContext.BottomNavigationViewHelper;
 import com.xcf.admin.couldclass.MyContext.HttpHelper;
 import com.xcf.admin.couldclass.MyContext.MyApp;

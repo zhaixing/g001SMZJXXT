@@ -41,7 +41,6 @@ dependencies {
     //配合Rxjava 使用
     implementation files('libs/string_convert.jar')
     implementation project(':vitamio')
-
     // 圆角头像
     implementation 'com.makeramen:roundedimageview:2.3.0'
 }
