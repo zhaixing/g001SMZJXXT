@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xcf.admin.couldclass.Dao.UserService;
+import com.xcf.admin.couldclass.Entity.login.loginuser;
 import com.xcf.admin.couldclass.MyContext.HttpHelper;
 import com.xcf.admin.couldclass.MyContext.MessageContext;
 import com.xcf.admin.couldclass.R;
@@ -47,10 +48,10 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
         switch (view.getId()) {
             case R.id.btn_login: {
                 UserService u = HttpHelper.getInstance().getRetrofitStr().create(UserService.class);
-                Call<String> call = u.Login(name.getText().toString(), pwd.getText().toString(), "");
-                call.enqueue(new Callback<String>() {
+                Call<loginuser> call = u.Login(name.getText().toString(), pwd.getText().toString(), "");
+                call.enqueue(new Callback<loginuser>() {
                     @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
+                    public void onResponse(Call<loginuser> call, Response<loginuser> response) {
                         Log.d(this.getClass().toString(), "onResponse: " + response.body());
                         if (response.body().equals("success")) {
                             finish();
@@ -60,7 +61,7 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
                     }
 
                     @Override
-                    public void onFailure(Call<String> call, Throwable t) {
+                    public void onFailure(Call<loginuser> call, Throwable t) {
                         Toast.makeText(loginActivity.this, MessageContext.INTNET_ERROR, Toast.LENGTH_SHORT).show();
                     }
                 });

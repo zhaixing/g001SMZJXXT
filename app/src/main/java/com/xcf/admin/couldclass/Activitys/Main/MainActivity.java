@@ -13,6 +13,7 @@ import com.xcf.admin.couldclass.MyContext.BottomNavigationViewHelper;
 import com.xcf.admin.couldclass.MyContext.HttpHelper;
 import com.xcf.admin.couldclass.MyContext.MyApp;
 import com.xcf.admin.couldclass.R;
+import com.xcf.admin.couldclass.SysApplication.SysApplication;
 import com.xcf.admin.couldclass.handle.persistentcookiejar.PersistentCookieJar;
 import com.xcf.admin.couldclass.handle.persistentcookiejar.cache.SetCookieCache;
 import com.xcf.admin.couldclass.handle.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
@@ -76,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         BottomNavigationViewHelper.disableShiftMode(navigation);
         myViewPager.addOnPageChangeListener(this);
         InitHttp();
+        SysApplication.getInstance().addActivity(this);
     }
 
     public void InitHttp() {

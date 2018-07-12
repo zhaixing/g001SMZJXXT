@@ -40,6 +40,25 @@ public class User extends BaseEntity implements Serializable {
 
     private java.util.Date TokenOut;
 
+    private String Id_Card;
+
+    private String Phone_Number;
+
+    public String getId_card() {
+        return Id_Card;
+    }
+
+    public void setId_card(String id_card) {
+        Id_Card = id_card;
+    }
+
+    public String getPhone_number() {
+        return Phone_Number;
+    }
+
+    public void setPhone_number(String phone_number) {
+        this.Phone_Number = phone_number;
+    }
 
     public Long getUser_Id() {
         return User_Id;
