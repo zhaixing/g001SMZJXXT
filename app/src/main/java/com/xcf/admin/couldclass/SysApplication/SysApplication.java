@@ -11,8 +11,8 @@ import java.util.List;
  * Created by xkc on 12/11/15.
  */
 public class SysApplication extends AppCompatActivity {
-    private List<Activity> mList = new ArrayList<>();
     private static SysApplication instance;
+    private List<Activity> mList = new ArrayList<>();
 
     private SysApplication() {
     }

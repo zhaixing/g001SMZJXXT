@@ -21,6 +21,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
     Button logoff1;
     Button logoff2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
