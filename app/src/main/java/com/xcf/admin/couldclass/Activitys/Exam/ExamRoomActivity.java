@@ -71,7 +71,6 @@ public class ExamRoomActivity extends AppCompatActivity implements AdapterView.O
                 } catch (Exception ex) {
                 }
             }
-
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 Log.d(this.getClass().toString(), "onResponse: 失败" + t.getMessage() + "_" + t.getCause());

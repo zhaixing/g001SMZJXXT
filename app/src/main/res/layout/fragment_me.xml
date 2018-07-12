@@ -138,16 +138,18 @@
                     app:riv_border_width="2dp"
                     app:riv_oval="true" />
 
-                <Button
+                <TextView
                     android:id="@+id/btn_user"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
+                    android:gravity="center_vertical|left"
                     android:layout_marginStart="99dp"
                     android:background="@android:color/transparent"
-                    android:text="姓名"
-                    android:textColor="@color/colorPrimaryDark" />
+                    android:text="姓名:"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="16sp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -159,7 +161,6 @@
                 android:clickable="true">
 
                 <TextView
-                    android:id="@+id/iv_my_favorite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
@@ -169,12 +170,12 @@
                     android:textAlignment="center" />
 
                 <TextView
+                    android:id="@+id/view_my_org"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="74dp"
-                    android:text="无部门"
                     android:textColor="@color/font_normal"
                     android:textSize="16sp" />
             </RelativeLayout>
@@ -185,14 +186,13 @@
                 android:background="@color/line_bg" />
 
             <RelativeLayout
-                android:id="@+id/view_my_work"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:background="@color/white"
                 android:clickable="true">
 
                 <TextView
-                    android:id="@+id/iv_my_work"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
@@ -202,12 +202,12 @@
 
 
                 <TextView
+                    android:id="@+id/view_my_major"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="74dp"
-                    android:text="无专业"
                     android:textColor="@color/font_normal"
                     android:textSize="16sp" />
             </RelativeLayout>
@@ -218,7 +218,6 @@
                 android:background="@color/line_bg" />
 
             <RelativeLayout
-                android:id="@+id/view_my_zhiwei"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:background="@color/white"
@@ -235,12 +234,12 @@
 
 
                 <TextView
+                    android:id="@+id/view_my_position"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="74dp"
-                    android:text="无职位"
                     android:textColor="@color/font_normal"
                     android:textSize="16sp" />
             </RelativeLayout>
@@ -250,8 +249,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginTop="20dp"
-                android:background="@color/white"
-                android:clickable="true">
+                android:background="@color/white">
 
                 <ImageView
                     android:id="@+id/iv_my_setting"
@@ -271,6 +269,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="76dp"
                     android:text="设置"
+                    android:clickable="false"
                     android:textAlignment="textStart"
                     android:textColor="@color/font_normal"
                     android:textSize="16sp" />

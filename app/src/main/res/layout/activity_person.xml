@@ -5,7 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activitys.Login.PersonActivity">
+    tools:context=".Activitys.Personal.PersonActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -154,15 +154,18 @@
                         app:riv_border_width="2dp"
                         app:riv_oval="true" />
 
-                    <Button
+                    <TextView
                         android:id="@+id/btn_user_name"
-                        android:layout_width="wrap_content"
+                        android:layout_width="54dp"
                         android:layout_height="match_parent"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
-                        android:layout_marginStart="29dp"
+                        android:gravity="center_vertical|left"
+                        android:layout_marginStart="34dp"
+                        android:layout_marginTop="0dp"
+                        android:textSize="16sp"
                         android:background="@android:color/transparent"
-                        android:text="姓名"
+                        android:text="头像"
                         android:textColor="@color/colorPrimaryDark" />
                 </RelativeLayout>
 
@@ -181,8 +184,8 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="20dp"
-                        android:text="姓名1"
-                        android:textAlignment="textEnd" />
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/gray" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -201,7 +204,6 @@
                     android:background="@color/line_bg" />
 
                 <RelativeLayout
-                    android:id="@+id/view_my_work"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:background="@color/white"
@@ -214,8 +216,8 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="22dp"
-                        android:text="账号"
-                        android:textAlignment="textEnd" />
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/gray" />
 
 
                     <TextView
@@ -235,7 +237,6 @@
                     android:background="@color/line_bg" />
 
                 <RelativeLayout
-                    android:id="@+id/view_my_zwei"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:background="@color/white"
@@ -248,8 +249,8 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="23dp"
-                        android:text="身份证号"
-                        android:textAlignment="textEnd" />
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/gray" />
 
 
                     <TextView
@@ -282,8 +283,8 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="22dp"
-                        android:text="手机号"
-                        android:textAlignment="textEnd" />
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/gray" />
 
 
                     <TextView

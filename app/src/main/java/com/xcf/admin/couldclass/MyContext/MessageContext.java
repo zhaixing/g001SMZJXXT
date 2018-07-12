@@ -8,4 +8,5 @@ public interface MessageContext {
 
     String INTNET_ERROR = "网络链接错误，请检查网络。";
     String USER_PWD_ERROR = "账号或密码错误";
+    String LOGIN_ERROR = "账号在其他设备登录";
 }

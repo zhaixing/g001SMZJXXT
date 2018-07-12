@@ -48,11 +48,11 @@
         <activity android:name=".Activitys.Login.RegisterActivity" />
         <activity android:name=".Activitys.Login.FinishUserActivity" />
         <activity
-            android:name=".Activitys.Login.PersonActivity"
+            android:name=".Activitys.Personal.PersonActivity"
             android:label="@string/title_activity_person"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activitys.Login.SettingActivity"
+            android:name=".Activitys.Personal.SettingActivity"
             android:label="@string/title_activity_setting"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

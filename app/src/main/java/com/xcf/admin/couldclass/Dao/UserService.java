@@ -1,5 +1,6 @@
 package com.xcf.admin.couldclass.Dao;
 
+import com.xcf.admin.couldclass.Entity.login.loginuser;
 import com.xcf.admin.couldclass.Entity.user.User;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public interface UserService {
     Call<String> GetUserStr();
 
     @GET("/app/login.do")
-    Call<String> Login(@Query("usercode") String usercode, @Query("pwd") String pwd, @Query("token") String Token);
+    Call<loginuser> Login(@Query("usercode") String usercode, @Query("pwd") String pwd, @Query("token") String Token);
 
     @GET("/app/logout.do")
     Call<String> LogOut(@Query("usercode") String usercode);
