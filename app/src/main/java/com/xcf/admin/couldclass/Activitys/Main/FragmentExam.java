@@ -10,14 +10,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.xcf.admin.couldclass.Adapter.ListViewAdapter;
+import com.xcf.admin.couldclass.Entity.examroom.ExamRoom;
+import com.xcf.admin.couldclass.Entity.user.User;
 import com.xcf.admin.couldclass.R;
-import com.nineoldandroids.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import io.vov.vitamio.utils.Log;
+
 public class FragmentExam extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
 
@@ -28,16 +40,7 @@ public class FragmentExam extends Fragment {
     private Spinner citySpinner = null;     //地级市
     private Spinner countySpinner = null;    //县级（区、县、县级市）
 
-    private int tab;
-    private boolean tag = false;
-    private View itemView=null;
-    private ListView lv;
-    private String table,content;
-    public static String field,value;
-    private TextView tv1, tv2, info;
-    private SimpleCursorAdapter adapter;
-    private Cursor cursor;
-    private FloatingActionButton fabtest,fabprac;
+    private ListView listView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,7 +56,6 @@ public class FragmentExam extends Fragment {
         citySpinner = (Spinner)view.findViewById(R.id.spin_city);
         countySpinner = (Spinner)view.findViewById(R.id.spin_county);
 
-        lv = rootView.findViewById(R.id.lv_que);
 
 //        Spinner spinner = (Spinner) view.findViewById(R.id.spinner1);
 //        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -71,7 +73,22 @@ public class FragmentExam extends Fragment {
 //            }
 //        });
 
+        listView = (ListView)rootView.findViewById(R.id.listview);
+        List<Map<String, Object>> list=getData();
+        listView.setAdapter(new ListViewAdapter(getActivity(), list));
+
         return rootView;
     }
 
+    public List<Map<String, Object>> getData(){
+        List<Map<String, Object>> list=new ArrayList<Map<String,Object>>();
+        for (int i = 0; i < 30; i++) {
+            Map<String, Object> map=new HashMap<String, Object>();
+            map.put("image", R.drawable.head1);
+            map.put("title", "这是一个标题"+i);
+            map.put("info", "这是一个详细信息" + i);
+            list.add(map);
+        }
+        return list;
+    }
 }
