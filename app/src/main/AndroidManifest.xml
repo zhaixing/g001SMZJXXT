@@ -17,28 +17,30 @@
         android:roundIcon="@mipmap/ic_yun"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activitys.Loginyhs.LoginActivity" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
-
-        <activity
-            android:name=".Activitys.Main.MainActivity"
-            android:label="@string/app_name">
-            <!--<intent-filter>
+        <activity android:name=".Activitys.Loginyhs.LoginActivity">
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activitys.Main.MainActivity"
+            android:label="@string/app_name">
+
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
         </activity>
         <activity
             android:name=".Activitys.Login.loginActivity"
             android:launchMode="singleTop" />
         <activity android:name=".Activitys.Answer.AnswerActivity" />
         <activity android:name=".Activitys.Live.LiveActivity" />
-
         <activity
             android:name="io.vov.vitamio.activity.InitActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
@@ -58,8 +60,12 @@
         <activity
             android:name=".Activitys.Personal.SettingActivity"
             android:label="@string/title_activity_setting"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activitys.Rank.RankActivity" />
+        <activity
+            android:name=".Activitys.Exam.ExamAddActivity"
+            android:label="@string/title_activity_exam_add"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
