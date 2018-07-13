@@ -1,8 +1,8 @@
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.xcf.admin.couldclass.Activitys.Main.FragmentExam"
-    android:layout_height="20dp" android:layout_width="20dp">
+    android:layout_height="20dp"
+    android:layout_width="20dp">
 
     <item
         android:id="@+id/save_select_ter"
