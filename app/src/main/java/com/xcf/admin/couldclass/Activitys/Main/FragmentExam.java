@@ -1,6 +1,5 @@
 package com.xcf.admin.couldclass.Activitys.Main;
 
-import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,16 +7,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import com.xcf.admin.couldclass.R;
-import com.nineoldandroids.*;
 public class FragmentExam extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
 
@@ -49,11 +44,11 @@ public class FragmentExam extends Fragment {
         // fragment获取控件的方法
         view = getActivity().getLayoutInflater().inflate(R.layout.fragment_exam, null);
 
-        provinceSpinner = (Spinner)view.findViewById(R.id.spin_province);
-        citySpinner = (Spinner)view.findViewById(R.id.spin_city);
-        countySpinner = (Spinner)view.findViewById(R.id.spin_county);
+        provinceSpinner = view.findViewById(R.id.spin_province);
+        citySpinner = view.findViewById(R.id.spin_city);
+        countySpinner = view.findViewById(R.id.spin_county);
 
-        lv = rootView.findViewById(R.id.lv_que);
+        //lv = rootView.findViewById(R.id.lv_que);
 
 //        Spinner spinner = (Spinner) view.findViewById(R.id.spinner1);
 //        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

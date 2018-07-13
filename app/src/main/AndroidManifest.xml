@@ -48,6 +48,8 @@
         <activity android:name=".Activitys.Exam.ExamRoomActivity" />
         <activity android:name=".Activitys.Login.RegisterActivity" />
         <activity android:name=".Activitys.Login.FinishUserActivity" />
+        <activity android:name=".Activitys.Exam.ExamEndActivity" />
+        <activity android:name=".Activitys.Exam.ExamStartActivity" />
         <activity
             android:name=".Activitys.Personal.PersonActivity"
             android:label="@string/title_activity_person"

@@ -51,10 +51,10 @@
                 android:textAlignment="center" />
         </RelativeLayout>
 
-        <com.lidan.xiao.danquestion.view.MyListView
+        <!--<com.lidan.xiao.danquestion.view.MyListView
             android:id="@+id/lv_que"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent" />-->
 
     </android.support.v4.widget.NestedScrollView>
 
