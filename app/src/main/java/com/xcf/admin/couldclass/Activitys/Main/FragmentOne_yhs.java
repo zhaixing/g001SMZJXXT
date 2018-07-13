@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TabHost;
@@ -27,13 +26,12 @@ public class FragmentOne_yhs extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_rank_top, container, false);
         super.onCreate(savedInstanceState);
-        //getActivity().setContentView(R.layout.activity_rank_top);
         tabHost = view.findViewById(R.id.tabhost);
         tabHost.setup();
         list_week = view.findViewById(R.id.list_week);
-        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1,getData());
-        //inflater=LayoutInflater.from(getContext());
 
+
+        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,getData());
         SimpleAdapter adapter = new SimpleAdapter(getContext(), getData(), R.layout.activity_rank_item,
                 new String[]{"rank", "image", "text"},
                 new int[]{R.id.list_item_rank, R.id.list_item_image, R.id.list_item_text});
@@ -67,7 +65,7 @@ public class FragmentOne_yhs extends Fragment {
     }
 
     //item点击事件 final SimpleAdapter adapter
-    public void setlistener() {
+    /*public void setlistener() {
         list_week = view.findViewById(R.id.list_week);
         list_week.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -76,5 +74,5 @@ public class FragmentOne_yhs extends Fragment {
                 //System.out.println(adapter.getItem(position));
             }
         });
-    }
+    }*/
 }

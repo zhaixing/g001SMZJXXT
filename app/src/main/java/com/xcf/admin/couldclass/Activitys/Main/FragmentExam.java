@@ -1,34 +1,25 @@
 package com.xcf.admin.couldclass.Activitys.Main;
 
-import android.annotation.SuppressLint;
-import android.database.Cursor;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.CursorAdapter;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import com.xcf.admin.couldclass.Activitys.Exam.ExamStartActivity;
 import com.xcf.admin.couldclass.Adapter.ListViewAdapter;
-import com.xcf.admin.couldclass.Entity.examroom.ExamRoom;
-import com.xcf.admin.couldclass.Entity.user.User;
 import com.xcf.admin.couldclass.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import io.vov.vitamio.utils.Log;
 
 public class FragmentExam extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -52,9 +43,9 @@ public class FragmentExam extends Fragment {
         // fragment获取控件的方法
         view = getActivity().getLayoutInflater().inflate(R.layout.fragment_exam, null);
 
-        provinceSpinner = (Spinner)view.findViewById(R.id.spin_province);
-        citySpinner = (Spinner)view.findViewById(R.id.spin_city);
-        countySpinner = (Spinner)view.findViewById(R.id.spin_county);
+        provinceSpinner = view.findViewById(R.id.spin_province);
+        citySpinner = view.findViewById(R.id.spin_city);
+        countySpinner = view.findViewById(R.id.spin_county);
 
 
 //        Spinner spinner = (Spinner) view.findViewById(R.id.spinner1);
@@ -73,9 +64,11 @@ public class FragmentExam extends Fragment {
 //            }
 //        });
 
-        listView = (ListView)rootView.findViewById(R.id.listview);
+        listView = rootView.findViewById(R.id.listview);
         List<Map<String, Object>> list=getData();
-        listView.setAdapter(new ListViewAdapter(getActivity(), list));
+        ListViewAdapter adapter = new ListViewAdapter(getActivity(), list);
+        listView.setAdapter(adapter);
+        setlistener(list);
 
         return rootView;
     }
@@ -90,5 +83,27 @@ public class FragmentExam extends Fragment {
             list.add(map);
         }
         return list;
+    }
+
+    public void setlistener(final List list) {
+        listView = rootView.findViewById(R.id.listview);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //我们需要的内容，跳转页面或显示详细信息
+                //System.out.println(adapter.getItem(position));
+                new AlertDialog.Builder(getActivity())
+                        .setMessage("开始考试！")
+                        .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Intent intent = new Intent(getActivity(), ExamStartActivity.class);
+                                startActivity(intent);
+                            }
+                        })
+                        .setNegativeButton("否", null)
+                        .show();
+            }
+        });
     }
 }

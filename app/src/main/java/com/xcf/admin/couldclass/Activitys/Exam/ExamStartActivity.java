@@ -1,5 +1,6 @@
 package com.xcf.admin.couldclass.Activitys.Exam;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -65,6 +66,9 @@ public class ExamStartActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.exam_start_button: {
+                Intent intent = new Intent(this, ExamAnswerActivity.class);
+                startActivity(intent);
+                finish();
             }
         }
 

@@ -8,7 +8,7 @@
     <View
         android:id="@+id/exam_start_viewtop"
         android:layout_width="0dp"
-        android:layout_height="140dp"
+        android:layout_height="120dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,7 +19,7 @@
         android:layout_width="0300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="36dp"
         android:singleLine="false"
         android:text="2018年阳泉站运输专业信号员第一次考试"
         android:textAlignment="center"
@@ -27,7 +27,7 @@
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/exam_start_viewtop"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
     <View
@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="156dp"
+        android:layout_marginTop="136dp"
         android:text="试卷难度：易，满分100分"
         android:textColor="@color/black"
         android:textSize="24sp"

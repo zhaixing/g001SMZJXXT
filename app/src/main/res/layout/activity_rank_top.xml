@@ -51,8 +51,8 @@
 
                     <ListView
                         android:id="@+id/list_month"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent" />
 
                 </LinearLayout>
 
@@ -61,10 +61,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
-
                     <ListView
                         android:id="@+id/list_quarter"
-                        android:layout_width="match_parent"
+                        android:layout_width="fill_parent"
                         android:layout_height="match_parent" />
 
                 </LinearLayout>
@@ -77,8 +76,7 @@
 
                     <ListView
                         android:id="@+id/list_year"
-
-                        android:layout_width="match_parent"
+                        android:layout_width="fill_parent"
                         android:layout_height="match_parent" />
                 </LinearLayout>
             </FrameLayout>
