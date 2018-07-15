@@ -70,4 +70,8 @@
     <color name="black_alpha">#71000000</color>
     <!-- 30%透明黑 -->
     <color name="black_alpha_30">#48000000</color>
+
+
+    <color name="text_title">#333333</color>
+    <color name="text_color_02">#FF6C6C6C</color>
 </resources>
