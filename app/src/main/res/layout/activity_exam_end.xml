@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -17,7 +18,7 @@
     <View
         android:id="@+id/exam_endview2"
         android:layout_width="0dp"
-        android:layout_height="80dp"
+        android:layout_height="11dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/exam_endview1" />
@@ -37,12 +38,14 @@
         android:id="@+id/exam_end_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginTop="24dp"
+        android:dividerHeight="5dp"
         android:text="试卷名称:  2018年阳泉站运输专业信号员第一次考试"
         android:textAlignment="viewStart"
         android:textSize="14sp"
-        android:dividerHeight="5dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -61,9 +64,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="80dp"
         android:text="考试得分："
-        android:textSize="30sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -72,48 +75,50 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="80dp"
         android:text="90分"
-        android:textSize="30sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/exam_end_textview"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/exam_end_button1"
-        android:layout_width="wrap_content"
+        style="@style/linearlayout_text_style"
+        android:layout_width="199dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:layout_marginStart="32dp"
+        android:background="@color/green"
+        android:gravity="center"
         android:text="全部解析"
-        android:textColor="@color/blue"
+        android:textAlignment="center"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/exam_end_button2"
-        android:layout_width="wrap_content"
+        style="@style/linearlayout_text_style"
+        android:layout_width="184dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:layout_marginStart="88dp"
+        android:background="@color/green"
+        android:gravity="center"
         android:text="错题解析"
-        android:textColor="@color/blue"
+        android:textAlignment="center"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/exam_end_button1" />
 
     <ListView
         android:id="@+id/exam_end_list"
-        android:layout_width="0dp"
+        android:layout_width="337dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="4dp"
         app:layout_constraintBottom_toTopOf="@+id/exam_end_button2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="@+id/exam_endview3"
         app:layout_constraintTop_toTopOf="@+id/exam_endview3"
         app:layout_constraintVertical_bias="0.0" />
 
