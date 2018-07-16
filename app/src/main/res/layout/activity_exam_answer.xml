@@ -18,6 +18,7 @@
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/exam_answer_view1"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
@@ -57,7 +58,7 @@
     <View
         android:id="@+id/exam_answer_view2"
         android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_height="90dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,10 +67,12 @@
     <TextView
         android:id="@+id/exam_answer_ques"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="《劳动合同书》中规定，甲方违章指挥、强令冒险作业，危及乙方人身安全的，乙方（）。"
+        android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/exam_answer_view2" />
 
@@ -89,7 +92,7 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="A、3" />
+            android:text="A、严格执行" />
 
         <RadioButton
             android:id="@+id/exam_answer_radioButtonB"

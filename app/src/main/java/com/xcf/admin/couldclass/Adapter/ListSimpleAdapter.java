@@ -1,4 +1,4 @@
-package com.xcf.admin.couldclass.Rank;
+package com.xcf.admin.couldclass.Adapter;
 
 import android.content.Context;
 import android.widget.LinearLayout;
@@ -52,7 +52,6 @@ public class ListSimpleAdapter extends SimpleAdapter {
                 @Override
                 public void onClick(View arg0) {
                     // TODO Auto-generated method stub
-
                     Toast.makeText(context, "点击了第"+position+"项", 1000).show();
                 }
             });
