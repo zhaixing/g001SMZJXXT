@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,9 +29,10 @@ public class ListViewAdapter extends BaseAdapter {
      */
     public final class Zujian{
         public ImageView image;
-        public TextView title;
-        public Button view;
-        public TextView info;
+        public TextView titlename;
+        public TextView date;
+        public TextView time;
+        public TextView complete;
     }
     @Override
     public int getCount() {
@@ -60,18 +60,22 @@ public class ListViewAdapter extends BaseAdapter {
             zujian=new Zujian();
             //获得组件，实例化组件
             convertView=layoutInflater.inflate(R.layout.item_exam, null);
-            zujian.image=(ImageView)convertView.findViewById(R.id.image_exam_head);
-            zujian.title=(TextView)convertView.findViewById(R.id.title_exam_name);
+            zujian.image = convertView.findViewById(R.id.image_exam_head);
+            zujian.titlename = convertView.findViewById(R.id.title_exam_name);
+            zujian.date = convertView.findViewById(R.id.exam_date);
             //zujian.view=(Button)convertView.findViewById(R.id.view);
-            zujian.info=(TextView)convertView.findViewById(R.id.info_exam);
+            zujian.time = convertView.findViewById(R.id.exam_time);
+            zujian.complete = convertView.findViewById(R.id.exam_complete);
             convertView.setTag(zujian);
         }else{
             zujian=(Zujian)convertView.getTag();
         }
         //绑定数据
         zujian.image.setBackgroundResource((Integer)data.get(position).get("image"));
-        zujian.title.setText((String)data.get(position).get("title"));
-        zujian.info.setText((String)data.get(position).get("info"));
+        zujian.titlename.setText((String) data.get(position).get("name"));
+        zujian.date.setText((String) data.get(position).get("date"));
+        zujian.time.setText((String) data.get(position).get("time"));
+        zujian.complete.setText((String) data.get(position).get("complete"));
         return convertView;
     }
 

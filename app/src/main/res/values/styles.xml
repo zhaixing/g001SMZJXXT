@@ -45,11 +45,11 @@
         <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="linearlayout_edit_style">
+    <style name="linearlayout_edit_style" parent="android:Widget.EditText">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">2</item>
-        <item name="android:background">@drawable/edit_bg_selector</item>
+        <item name="android:background">@drawable/edit_bg_selector1</item>
         <item name="android:textColor">@color/text_color_02</item>
         <item name="android:textSize">14sp</item>
         <item name="android:paddingLeft">10dp</item>

@@ -3,6 +3,8 @@ package com.xcf.admin.couldclass.MyContext;
 import android.app.Application;
 import android.content.Context;
 
+import com.xcf.admin.couldclass.Entity.examroom.Appques;
+
 import io.vov.vitamio.Vitamio;
 
 /**
@@ -23,4 +25,10 @@ public class MyApp extends Application {
         Vitamio.isInitialized(this);
         super.onCreate();
     }
+
+
+    public static Appques appquesmain;//具体的题
+    public static int questionsum;//题目的总数量
+    public static String papername;//考场的名字
+    public static String roomid;//(考场的id)
 }

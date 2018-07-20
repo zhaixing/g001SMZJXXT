@@ -1,13 +1,15 @@
 package com.xcf.admin.couldclass.Adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.xcf.admin.couldclass.R;
 
 import java.util.List;
 import java.util.Map;
@@ -25,10 +27,10 @@ public class RankAdapter extends BaseAdapter {
     }
 
     public final class Zujian {
-        public ImageView image;
-        public TextView title;
-        public Button view;
-        public TextView info;
+        public TextView rank;
+        public ImageView imageView;
+        public TextView name;
+        public TextView score;
     }
 
     @Override
@@ -46,10 +48,27 @@ public class RankAdapter extends BaseAdapter {
         return i;
     }
 
+
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        return null;
+        RankAdapter.Zujian zujian = null;
+        if (view == null) {
+            zujian = new RankAdapter.Zujian();
+            //获得组件，实例化组件
+            view = layoutInflater.inflate(R.layout.activity_rank_item, null);
+            zujian.rank = view.findViewById(R.id.list_item_rank);
+            zujian.imageView = view.findViewById(R.id.list_item_image);
+            zujian.name = view.findViewById(R.id.list_item_name);
+            zujian.score = view.findViewById(R.id.list_item_score);
+            view.setTag(zujian);
+        } else {
+            zujian = (RankAdapter.Zujian) view.getTag();
+        }
+        //绑定数据
+        zujian.rank.setText(data.get(i).get("rank").toString());
+        zujian.imageView.setImageBitmap((Bitmap) data.get(i).get("image"));
+        zujian.name.setText((String) data.get(i).get("name"));
+        zujian.score.setText((String) data.get(i).get("score"));
+        return view;
     }
-
-
 }

@@ -1,10 +1,13 @@
 package com.xcf.admin.couldclass.Activitys.Main;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,12 +21,20 @@ import android.widget.Spinner;
 import com.xcf.admin.couldclass.Activitys.Exam.ExamAddActivity;
 import com.xcf.admin.couldclass.Activitys.Exam.ExamStartActivity;
 import com.xcf.admin.couldclass.Adapter.ListViewAdapter;
+import com.xcf.admin.couldclass.Dao.ExamServiceyhs;
+import com.xcf.admin.couldclass.Entity.examroom.ListExamRoom;
+import com.xcf.admin.couldclass.MyContext.HttpHelper;
 import com.xcf.admin.couldclass.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FragmentExam extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -36,6 +47,7 @@ public class FragmentExam extends Fragment {
     private Spinner countySpinner = null;    //县级（区、县、县级市）
 
     private ListView listView;
+    SharedPreferences sp;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,39 +79,78 @@ public class FragmentExam extends Fragment {
 //                // Another interface callback
 //            }
 //        });
-
         listView = rootView.findViewById(R.id.listview);
-        List<Map<String, Object>> list=getData();
-        ListViewAdapter adapter = new ListViewAdapter(getActivity(), list);
-        listView.setAdapter(adapter);
-        setlistener(list);
-
+        getData();
         return rootView;
     }
 
-    public List<Map<String, Object>> getData(){
-        List<Map<String, Object>> list=new ArrayList<Map<String,Object>>();
-        for (int i = 0; i < 30; i++) {
-            Map<String, Object> map=new HashMap<String, Object>();
-            if (i % 2 == 0) {
-                map.put("image", R.drawable.ic_action_star_5);
-                map.put("title", "2018年北京铁路局车站值班员统一考试" + i);
-                map.put("info", "试题数量：" + i);
-            } else if (i % 3 == 0) {
-                map.put("image", R.drawable.ic_action_star_10);
-                map.put("title", "2018年阳泉站车站值班员统一考试" + i);
-                map.put("info", "试题数量：" + i);
-            } else {
-                map.put("image", R.drawable.ic_action_star_0);
-                map.put("title", "2018年统一考试" + i);
-                map.put("info", "试题数量：" + i);
+    public void getData() {
+        sp = getContext().getSharedPreferences("loginToken", Context.MODE_PRIVATE);
+        //获取Token;
+        String token = sp.getString("token", null);
+        final List<Map<String, Object>> list = new ArrayList<>();
+        ExamServiceyhs u = HttpHelper.getInstance().getRetrofitStr().create(ExamServiceyhs.class);
+        Call<ListExamRoom> call = u.GetExamRoom1(token);
+        call.enqueue(new Callback<ListExamRoom>() {
+            @Override
+            public void onResponse(Call<ListExamRoom> call, Response<ListExamRoom> response) {
+                if (response.body().getBool().equals("success")) {
+                    System.out.println("成功");
+                    for (ListExamRoom.Examlist examlist : response.body().getList()
+                            ) {
+                        SimpleDateFormat format = new SimpleDateFormat("hh:MM:ss");
+                        HashMap<String, Object> hashMap = new HashMap();
+                        hashMap.put("date", examlist.getStartdate() + "~" + examlist.getEnddate());
+                        hashMap.put("time", examlist.getStarttime().replace("上午", "AM").replace("下午", "PM")
+                                + "~" + examlist.getEndtime().replace("上午", "AM").replace("下午", "PM"));
+                        hashMap.put("name", examlist.getExamroomname());
+                        hashMap.put("roomid", examlist.getExamroomid());
+                        hashMap.put("type", examlist.getType());
+                        switch (examlist.getComplete().toString()) {
+                            case "0": {
+                                hashMap.put("complete", "未参加");
+                                hashMap.put("image", R.drawable.ic_action_star_0);
+                                break;
+                            }
+                            case "1": {
+                                hashMap.put("complete", "未完成");
+                                hashMap.put("image", R.drawable.ic_action_star_5);
+                                break;
+                            }
+                            case "2": {
+                                hashMap.put("complete", "已完成");
+                                hashMap.put("image", R.drawable.ic_action_star_10);
+                                break;
+                            }
+                            case "3": {
+                                hashMap.put("complete", "缺考");
+                                hashMap.put("image", R.drawable.ic_action_star_0);
+                                break;
+                            }
+                            case "4": {
+                                hashMap.put("complete", "未参加");
+                                hashMap.put("image", R.drawable.ic_action_star_0);
+                                break;
+                            }
+                        }
+                        list.add(hashMap);
+                    }
+                } else {
+                    Log.e(getTag(), "onCreateView: 账号在别处登录");
+                }
+                ListViewAdapter adapter = new ListViewAdapter(getActivity(), list);
+                listView.setAdapter(adapter);
+                setlistener(list);
             }
-            list.add(map);
-        }
-        return list;
+
+            @Override
+            public void onFailure(Call<ListExamRoom> call, Throwable t) {
+                System.out.println("失败");
+            }
+        });
     }
 
-    public void setlistener(final List list) {
+    public void setlistener(final List<Map<String, Object>> list) {
         listView = rootView.findViewById(R.id.listview);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -111,7 +162,12 @@ public class FragmentExam extends Fragment {
                         .setPositiveButton("是", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
+                                Map<String, Object> map = list.get(i + 1);
                                 Intent intent = new Intent(getActivity(), ExamStartActivity.class);
+                                intent.putExtra("roomid", map.get("roomid").toString());
+                                intent.putExtra("userid", sp.getString("userid", null));
+                                intent.putExtra("type", map.get("type").toString());
+                                intent.putExtra("name", map.get("name").toString());
                                 startActivity(intent);
                             }
                         })

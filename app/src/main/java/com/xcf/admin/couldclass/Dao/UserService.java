@@ -42,4 +42,5 @@ public interface UserService {
 
     @GET("/app/user/finish.do")
     Call<String> FinishUserApp(@Query("name") String name, @Query("orgid") String orgid);
+
 }

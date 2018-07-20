@@ -66,6 +66,6 @@
             android:name=".Activitys.Exam.ExamAddActivity"
             android:label="@string/title_activity_exam_add"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-    </application>
 
+    </application>
 </manifest>

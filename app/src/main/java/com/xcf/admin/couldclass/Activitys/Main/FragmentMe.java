@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.xcf.admin.couldclass.Activitys.Personal.PersonActivity;
 import com.xcf.admin.couldclass.Activitys.Personal.SettingActivity;
 import com.xcf.admin.couldclass.R;
+import com.xcf.admin.couldclass.SysApplication.SysApplication;
 
 public class FragmentMe extends Fragment implements View.OnClickListener {
 
@@ -27,6 +28,7 @@ public class FragmentMe extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanseState) {
+        SysApplication.getInstance().addActivity(this.getActivity());
         return inflater.inflate(R.layout.fragment_me, container, false);
     }
 

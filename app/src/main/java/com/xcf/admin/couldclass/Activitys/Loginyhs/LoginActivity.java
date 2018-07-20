@@ -58,7 +58,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 loginin(call);
             }
         } catch (Exception e) {
-
         }
 
     }
@@ -122,7 +121,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     User user = response.body().getUser();
                     SharedPreferences sp = getSharedPreferences("loginToken", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sp.edit();
-                    editor.putLong("userid", user.getUser_Id());
+                    editor.putString("userid", user.getUser_Id().toString());
                     editor.putString("username", user.getUser_name());
                     editor.putString("zhanghao", user.getUser_Code().toString());
                     editor.putString("idcard", user.getId_card());

@@ -8,21 +8,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import com.converfactory.StringConverterFactory;
 import com.xcf.admin.couldclass.MyContext.BottomNavigationViewHelper;
-import com.xcf.admin.couldclass.MyContext.HttpHelper;
-import com.xcf.admin.couldclass.MyContext.MyApp;
 import com.xcf.admin.couldclass.R;
-import com.xcf.admin.couldclass.handle.persistentcookiejar.PersistentCookieJar;
-import com.xcf.admin.couldclass.handle.persistentcookiejar.cache.SetCookieCache;
-import com.xcf.admin.couldclass.handle.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.OkHttpClient;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, ViewPager.OnPageChangeListener {
 
@@ -75,10 +65,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         navigation.setOnNavigationItemSelectedListener(this);
         BottomNavigationViewHelper.disableShiftMode(navigation);
         myViewPager.addOnPageChangeListener(this);
-        InitHttp();
+        /*InitHttp();*/
     }
 
-    public void InitHttp() {
+   /* public void InitHttp() {
         HttpHelper.getInstance().setCookieJar(new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(MyApp.getContextObject())));
         HttpHelper.getInstance().getCookieJar().clear();
         HttpHelper.getInstance().setOkHttpClient(new OkHttpClient.Builder()
@@ -97,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 .client(HttpHelper.getInstance().getOkHttpClient())
                 .build());
     }
-
+*/
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
