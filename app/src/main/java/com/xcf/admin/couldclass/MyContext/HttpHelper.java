@@ -12,8 +12,10 @@ import retrofit2.Retrofit;
 
 public class HttpHelper {
     private static HttpHelper singleTonInstance;
-    public final String path = "http://192.168.1.86:8080";
+//    public final String path = "http://192.168.1.86:8080";
+    public final String path = "http://exam.1435yun.com";
     private ClearableCookieJar cookieJar;
+
     private OkHttpClient okHttpClient;
     private Retrofit retrofitStr;
     private Retrofit retrofit;
