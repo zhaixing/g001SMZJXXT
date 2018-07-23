@@ -43,4 +43,9 @@ dependencies {
     implementation project(':vitamio')
     // 圆角头像
     implementation 'com.makeramen:roundedimageview:2.3.0'
+
+    implementation project(':pickerview')
+    implementation project(':wheelview')
+//    implementation project(':expandpoptab-library')
+    implementation project(':AVLoadingIndicatorView')
 }

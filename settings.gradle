@@ -1,1 +1,2 @@
-include ':app', ':vitamio'
+include ':app', ':vitamio',':AVLoadingIndicatorView',':pickerview',':wheelview'
+//,':expandpoptab-library'
