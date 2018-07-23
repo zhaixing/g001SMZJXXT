@@ -48,19 +48,17 @@ public class ExamStartActivity extends AppCompatActivity implements View.OnClick
             public void onResponse(Call<Appques> call, Response<Appques> response) {
                 Log.e("success", "onResponse: " + response.body());
                 MyApp.appquesmain = response.body();
+                //获取考题
                 Log.e("俺是谁？", "onResponse: " + MyApp.appquesmain);
                 setListener();
             }
-
             @Override
             public void onFailure(Call<Appques> call, Throwable t) {
                 Log.e("fail", "onFailure: ");
             }
         });
         Log.e(">>", "onCreate: 06");
-
     }
-
 
     public void setListener() {
         listView = findViewById(R.id.exam_start_list);
@@ -97,6 +95,7 @@ public class ExamStartActivity extends AppCompatActivity implements View.OnClick
         data.add(map);
         Map<String, Object> map1 = new HashMap<String, Object>();
         map1.put("text1", "单项选择题");
+        System.out.println(MyApp.appquesmain.getS().size());
         map1.put("text2", MyApp.appquesmain.getS().size() + "分");
         data.add(map1);
         Map<String, Object> map2 = new HashMap<String, Object>();
@@ -110,7 +109,6 @@ public class ExamStartActivity extends AppCompatActivity implements View.OnClick
         return data;
     }
 
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -120,6 +118,5 @@ public class ExamStartActivity extends AppCompatActivity implements View.OnClick
                 finish();
             }
         }
-
     }
 }

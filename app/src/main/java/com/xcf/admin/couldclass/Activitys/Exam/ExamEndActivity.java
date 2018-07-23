@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -73,11 +74,15 @@ public class ExamEndActivity extends AppCompatActivity implements View.OnClickLi
                         map.put("text1", "选择题");
                         map.put("text2", "");
                     } else {
-                        map.put("text1", "i." + MyApp.appquesmain.getS().get(i - 1).getQuesyhsname());
+                        map.put("text1", i + "." + MyApp.appquesmain.getS().get(i - 1).getQuesyhsname());
                         for (ResultQues resultQues : response.body()
                                 ) {
-                            if (resultQues.getQues().getQ_Id().toString().equals(MyApp.appquesmain.getS().get(i - 1).getQuesyhsid())) {
-                                map.put("text2", resultQues.getReal_Score() + "");
+                            System.out.println(resultQues.getQues().getQ_Id());
+                            System.out.println(MyApp.appquesmain.getS().get(i - 1).getQuesyhsid());
+                            if (resultQues.getQues().getQ_Id().equals(MyApp.appquesmain.getS().get(i - 1).getQuesyhsid())) {
+                                map.put("text2", resultQues.getReal_Score() + "分");
+                                Log.e("sddfd ", "onResponse: 测试成功");
+                                break;
                             }
                         }
                     }
@@ -89,11 +94,12 @@ public class ExamEndActivity extends AppCompatActivity implements View.OnClickLi
                         map.put("text1", "多选题");
                         map.put("text2", "");
                     } else {
-                        map.put("text1", "i." + MyApp.appquesmain.getD().get(i - 1).getQuesyhsname());
+                        map.put("text1", i + "." + MyApp.appquesmain.getD().get(i - 1).getQuesyhsname());
                         for (ResultQues resultQues : response.body()
                                 ) {
-                            if (resultQues.getQues().getQ_Id().toString().equals(MyApp.appquesmain.getD().get(i - 1).getQuesyhsid())) {
-                                map.put("text2", resultQues.getReal_Score() + "");
+                            if (resultQues.getQues().getQ_Id().equals(MyApp.appquesmain.getD().get(i - 1).getQuesyhsid())) {
+                                map.put("text2", resultQues.getReal_Score() + "分");
+                                break;
                             }
                         }
                     }
@@ -105,16 +111,23 @@ public class ExamEndActivity extends AppCompatActivity implements View.OnClickLi
                         map.put("text1", "判断题");
                         map.put("text2", "");
                     } else {
-                        map.put("text1", "i." + MyApp.appquesmain.getP().get(i - 1).getQuesyhsname());
+                        map.put("text1", i + "." + MyApp.appquesmain.getP().get(i - 1).getQuesyhsname());
                         for (ResultQues resultQues : response.body()
                                 ) {
-                            if (resultQues.getQues().getQ_Id().toString().equals(MyApp.appquesmain.getP().get(i - 1).getQuesyhsid())) {
-                                map.put("text2", resultQues.getReal_Score() + "");
+                            if (resultQues.getQues().getQ_Id().equals(MyApp.appquesmain.getP().get(i - 1).getQuesyhsid())) {
+                                map.put("text2", resultQues.getReal_Score() + "分");
+                                break;
                             }
                         }
                     }
                     data.add(map);
                 }
+                int realscore = 0;
+                for (ResultQues resultQues : response.body()
+                        ) {
+                    realscore += resultQues.getReal_Score();
+                }
+                score.setText(realscore + "分");
                 SimpleAdapter adapter = new SimpleAdapter(getApplicationContext(), data, R.layout.activity_exam_startitem,
                         new String[]{"text1", "text2"},
                         new int[]{R.id.exam_startitem1, R.id.exam_startitem2});

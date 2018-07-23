@@ -103,7 +103,6 @@ public class ExamAnswerActivity extends AppCompatActivity implements View.OnClic
                         public void onResponse(Call call, Response response) {
                             Log.e("这次", "onResponse: 成功了");
                         }
-
                         @Override
                         public void onFailure(Call call, Throwable t) {
                         }
@@ -179,7 +178,6 @@ public class ExamAnswerActivity extends AppCompatActivity implements View.OnClic
     }
 
     public void getdata() {
-        next.setText("下一题");
         examtitle.setText(MyApp.papername);//试卷名称
         questionnum.setText("" + quesnumber);//第几题
         questionsum.setText("/" + MyApp.questionsum);//总共多少题
@@ -208,9 +206,6 @@ public class ExamAnswerActivity extends AppCompatActivity implements View.OnClic
             radioButtonC.setText("C、" + MyApp.appquesmain.getD().get(i).getQuesyhsCname());
             radioButtonD.setText("D、" + MyApp.appquesmain.getD().get(i).getQuesyhsDname());
         } else if (quesnumber <= MyApp.questionsum) {
-            if (quesnumber == MyApp.questionsum) {
-                next.setText("交卷");
-            }
             int i = quesnumber - MyApp.appquesmain.getS().size() - MyApp.appquesmain.getD().size() - 1;
             q_id = MyApp.appquesmain.getP().get(i).getQuesyhsid();
             ques.setText(MyApp.appquesmain.getP().get(i).getQuesyhsname());

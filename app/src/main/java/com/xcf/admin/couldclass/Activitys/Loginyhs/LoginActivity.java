@@ -146,6 +146,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onFailure(Call<loginuser> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, MessageContext.INTNET_ERROR, Toast.LENGTH_SHORT).show();
             }
         });
 

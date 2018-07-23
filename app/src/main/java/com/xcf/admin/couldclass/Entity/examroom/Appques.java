@@ -125,5 +125,24 @@ public class Appques {
         private String quesyhsCname;
         private Long quesyhsDid;
         private String quesyhsDname;
+        private List quesyhsselected;
+
+        public List getQuesyhsselected() {
+            return quesyhsselected;
+        }
+
+        public void setQuesyhsselected(List quesyhsselected) {
+            this.quesyhsselected = quesyhsselected;
+        }
+
+        public List getQuesyhstrue() {
+            return quesyhstrue;
+        }
+
+        public void setQuesyhstrue(List quesyhstrue) {
+            this.quesyhstrue = quesyhstrue;
+        }
+
+        private List quesyhstrue;
     }
 }

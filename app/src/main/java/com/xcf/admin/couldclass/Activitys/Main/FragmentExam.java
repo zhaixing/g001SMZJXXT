@@ -98,8 +98,10 @@ public class FragmentExam extends Fragment {
                     System.out.println("成功");
                     for (ListExamRoom.Examlist examlist : response.body().getList()
                             ) {
-                        SimpleDateFormat format = new SimpleDateFormat("hh:MM:ss");
+                        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
                         HashMap<String, Object> hashMap = new HashMap();
+                        //Date curr=new Date(examlist.getStarttime());
+                        //System.out.println(format.format(new Date(examlist.getStarttime())));
                         hashMap.put("date", examlist.getStartdate() + "~" + examlist.getEnddate());
                         hashMap.put("time", examlist.getStarttime().replace("上午", "AM").replace("下午", "PM")
                                 + "~" + examlist.getEndtime().replace("上午", "AM").replace("下午", "PM"));
