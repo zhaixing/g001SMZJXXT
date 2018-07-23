@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.converfactory.StringConverterFactory;
 import com.google.gson.Gson;
+import com.wang.avi.AVLoadingIndicatorView;
 import com.xcf.admin.couldclass.Dao.UserService;
 import com.xcf.admin.couldclass.Entity.login.loginuser;
 import com.xcf.admin.couldclass.Entity.user.User;
@@ -41,6 +42,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     TextView Usercode;
     TextView pwd;
 
+    AVLoadingIndicatorView avi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +62,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         } catch (Exception e) {
         }
 
+        avi = findViewById(R.id.avi);
+        avi.show();
     }
 
 
