@@ -1,29 +1,49 @@
 package com.xcf.admin.couldclass.Activitys.Exam;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
+import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.CustomListener;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
+import com.bigkoo.pickerview.listener.OnTimeSelectChangeListener;
+import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
+import com.bigkoo.pickerview.view.TimePickerView;
+import com.xcf.admin.couldclass.Activitys.Main.MainActivity;
 import com.xcf.admin.couldclass.Entity.CardBean;
 import com.xcf.admin.couldclass.R;
 import com.xcf.admin.couldclass.SysApplication.SysApplication;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
 
 public class ExamAddActivity extends AppCompatActivity {
 
+    public EditText et_add_exam_name;
     public TextView tvAddExamType = null;
     private OptionsPickerView pvCustomOptions;
     private ArrayList<CardBean> cardItem = new ArrayList<>();
+    private TimePickerView pvTimeStart;// 开始时间
+    private TimePickerView pvTimeEnd;// 结束时间
+    private TextView tv_add_exam_end;// 结束
+    private TextView tv_add_exam_start;//开始
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +54,11 @@ public class ExamAddActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         SysApplication.getInstance().addActivity(this);
 
+        et_add_exam_name = findViewById(R.id.add_exam_name);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        Date dateNow=new Date(System.currentTimeMillis());
+        et_add_exam_name.setText("练习"+simpleDateFormat.format(dateNow));
+
         getCardData();
         initCustomOptionPicker();
 
@@ -42,6 +67,21 @@ public class ExamAddActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 pvCustomOptions.show();
+            }
+        });
+
+        // 时间选择
+        initTimePicker();
+        tv_add_exam_end = findViewById(R.id.add_exam_end);
+        tv_add_exam_start = findViewById(R.id.add_exam_start);
+        tv_add_exam_start.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                pvTimeStart.show(v);
+            }
+        });
+        tv_add_exam_end.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                pvTimeEnd.show(v);
             }
         });
     }
@@ -119,6 +159,79 @@ public class ExamAddActivity extends AppCompatActivity {
             if (cardItem.get(i).getCardNo().length() > 20) {
                 String str_item = cardItem.get(i).getCardNo().substring(0, 6) + "...";
                 cardItem.get(i).setCardNo(str_item);
+            }
+        }
+    }
+
+    private String getTime(Date date) {//可根据需要自行截取数据显示
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return format.format(date);
+    }
+
+    private void initTimePicker() {//Dialog 模式下，在底部弹出
+
+        pvTimeStart = new TimePickerBuilder(this, new OnTimeSelectListener() {
+            @Override
+            public void onTimeSelect(Date date, View v) {
+                Toast.makeText(ExamAddActivity.this,getTime(date),Toast.LENGTH_SHORT).show();
+            }
+        }).setTimeSelectChangeListener(new OnTimeSelectChangeListener() {
+            @Override
+            public void onTimeSelectChanged(Date date) {
+                Log.i("pvTimeStart","onTimeSelectChanged");
+            }
+        }).setType(new boolean[]{true,true,true,true,true,true}).isDialog(true).build();
+
+       Dialog mDialogStart = pvTimeStart.getDialog();
+       if (mDialogStart!=null)
+       {
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    Gravity.BOTTOM
+            );
+
+            params.leftMargin = 0;
+            params.rightMargin = 0;
+            pvTimeStart.getDialogContainerLayout().setLayoutParams(params);
+
+            Window dialogWindow = mDialogStart.getWindow();
+            if (dialogWindow!=null){
+                dialogWindow.setWindowAnimations(com.bigkoo.pickerview.R.style.picker_view_slide_anim);// 修改动画样式
+                dialogWindow.setGravity(Gravity.BOTTOM);//底部显示
+            }
+       }
+
+
+        pvTimeEnd = new TimePickerBuilder(this, new OnTimeSelectListener() {
+            @Override
+            public void onTimeSelect(Date date, View v) {
+                Toast.makeText(ExamAddActivity.this,getTime(date),Toast.LENGTH_SHORT).show();
+            }
+        }).setTimeSelectChangeListener(new OnTimeSelectChangeListener() {
+            @Override
+            public void onTimeSelectChanged(Date date) {
+                Log.i("pvTimeEnd","onTimeSelectChanged");
+            }
+        }).setType(new boolean[]{true,true,true,true,true,true}).isDialog(true).build();
+
+        Dialog mDialogEnd = pvTimeEnd.getDialog();
+        if (mDialogEnd!=null)
+        {
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    Gravity.BOTTOM
+            );
+
+            params.leftMargin = 0;
+            params.rightMargin = 0;
+            pvTimeEnd.getDialogContainerLayout().setLayoutParams(params);
+
+            Window dialogWindow = mDialogEnd.getWindow();
+            if (dialogWindow!=null){
+                dialogWindow.setWindowAnimations(com.bigkoo.pickerview.R.style.picker_view_slide_anim);// 修改动画样式
+                dialogWindow.setGravity(Gravity.BOTTOM);//底部显示
             }
         }
     }

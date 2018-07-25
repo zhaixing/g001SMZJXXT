@@ -83,4 +83,16 @@
         </LinearLayout>
     </TabHost>
 
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/avi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/AVLoadingIndicatorView"
+        android:visibility="gone"
+        app:indicatorName="BallSpinFadeLoaderIndicator"
+        app:indicatorColor="@color/green"
+        android:layout_marginTop="-60dp"
+        android:layout_gravity="center_horizontal"
+        />
+
 </android.support.constraint.ConstraintLayout>

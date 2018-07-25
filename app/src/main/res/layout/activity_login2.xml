@@ -72,6 +72,7 @@
         android:text="1"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
+        android:textColorLink="@android:color/holo_green_dark"
         android:textCursorDrawable="@null"
         android:textSize="16sp" />
 
@@ -90,6 +91,7 @@
         android:text="1"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
+        android:textColorLink="@android:color/holo_green_dark"
         android:textCursorDrawable="@null"
         android:textSize="16sp"
         tools:text="1" />
@@ -139,7 +141,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/AVLoadingIndicatorView"
-        android:visibility="visible"
+        android:visibility="gone"
         app:indicatorName="BallSpinFadeLoaderIndicator"
         app:indicatorColor="@color/green"
         android:layout_marginTop="-60dp"

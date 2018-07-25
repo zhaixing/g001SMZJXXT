@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.Toast;
 
+import com.wang.avi.AVLoadingIndicatorView;
 import com.xcf.admin.couldclass.Activitys.Rank.RankuserActivity;
 import com.xcf.admin.couldclass.Adapter.RankAdapter;
 import com.xcf.admin.couldclass.Dao.RankService;
@@ -40,6 +41,7 @@ public class FragmentOne_yhs extends Fragment {
     ListView list_month;
     ListView list_quar;
     ListView list_year;
+    public AVLoadingIndicatorView avi;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,12 +49,16 @@ public class FragmentOne_yhs extends Fragment {
         super.onCreate(savedInstanceState);
         tabHost = view.findViewById(R.id.tabhost);
         tabHost.setup();
+
+        avi = view.findViewById(R.id.avi);
+
         list_week = view.findViewById(R.id.list_week);
         list_month = view.findViewById(R.id.list_month);
         list_quar = view.findViewById(R.id.list_quarter);
         list_year = view.findViewById(R.id.list_year);
         RankService rankService = HttpHelper.getInstance().getRetrofitStr().create(RankService.class);
         Call<rankuserlist> call = rankService.Getranklist();
+        avi.smoothToShow();
         call.enqueue(new Callback<rankuserlist>() {
             @Override
             public void onResponse(Call<rankuserlist> call, Response<rankuserlist> response) {
@@ -78,6 +84,7 @@ public class FragmentOne_yhs extends Fragment {
         tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("月榜", null).setContent(R.id.list_month));
         tabHost.addTab(tabHost.newTabSpec("tab3").setIndicator("季榜", null).setContent(R.id.list_quarter));
         tabHost.addTab(tabHost.newTabSpec("tab4").setIndicator("年榜", null).setContent(R.id.list_year));
+        //avi.smoothToHide();
         return view;
     }
 

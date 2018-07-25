@@ -48,6 +48,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login2);
+
+        avi = findViewById(R.id.avi);
+
         getSupportActionBar().hide();//隐藏Actionbar
         SetListener();//
         InitHttp();
@@ -63,8 +66,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         } catch (Exception e) {
         }
 
-        avi = findViewById(R.id.avi);
-        avi.show();
     }
 
 
@@ -82,9 +83,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login_register: {
+
+                avi.smoothToShow();
                 UserService u = HttpHelper.getInstance().getRetrofitStr().create(UserService.class);
                 Call<loginuser> call = u.Login(Usercode.getText().toString(), pwd.getText().toString(), "");
                 loginin(call);
+//                avi.hide();
             }
         }
     }
@@ -115,6 +119,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void loginin(Call<loginuser> call) {
+        avi.smoothToShow();
         call.enqueue(new Callback<loginuser>() {
             @Override
             public void onResponse(Call<loginuser> call, Response<loginuser> response) {
@@ -141,17 +146,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     ComponentName comp = new ComponentName("com.xcf.admin.couldclass", "com.xcf.admin.couldclass.Activitys.Main.MainActivity");
 //或者intent.setClassName("包名","包名.类名");
                     intent.setComponent(comp);
+                    avi.smoothToHide();
                     startActivity(intent);
                     finish();
                 } else if (response.body().getbool().equals("false")) {
+                    avi.smoothToHide();
                     Toast.makeText(LoginActivity.this, MessageContext.USER_PWD_ERROR, Toast.LENGTH_SHORT).show();
                 } else if (response.body().getbool().equals("repeat")) {
+                    avi.smoothToHide();
                     Toast.makeText(LoginActivity.this, MessageContext.LOGIN_ERROR, Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<loginuser> call, Throwable t) {
+                avi.smoothToHide();
                 Toast.makeText(LoginActivity.this, MessageContext.INTNET_ERROR, Toast.LENGTH_SHORT).show();
             }
         });
