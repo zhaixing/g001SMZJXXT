@@ -11,7 +11,7 @@ import retrofit2.http.Query;
 public interface ExamServiceyhs {
 
     @GET("/app/exam/listyhs.do")
-    Call<ListExamRoom> GetExamRoom1(@Query("token") String token);
+    Call<ListExamRoom> GetExamRoom1(@Query("token") String token, @Query("major") String major, @Query("complete") String complete, @Query("timestate") String timestate);
 
     @GET("/app/exam/exampapaeryhs.do")
     Call<Appques> Getpaper(@Query("userid") String userid, @Query("roomid") String roomid);

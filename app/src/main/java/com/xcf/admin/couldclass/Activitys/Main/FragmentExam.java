@@ -43,11 +43,13 @@ public class FragmentExam extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
 
     private View rootView;
-    private View view;
 
-    private Spinner provinceSpinner = null;  //省级（省、直辖市）
-    private Spinner citySpinner = null;     //地级市
-    private Spinner countySpinner = null;    //县级（区、县、县级市）
+    private Spinner spin_major;
+    private Spinner spin_complete;
+    private Spinner spin_time;
+    private String major = "";
+    private String complete = "";
+    private String timestate = "";
 
     private ListView listView;
     SharedPreferences sp;
@@ -58,42 +60,19 @@ public class FragmentExam extends Fragment {
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_exam, container, false);
         }
-
-        // fragment获取控件的方法
-        view = getActivity().getLayoutInflater().inflate(R.layout.fragment_exam, null);
-
-        provinceSpinner = view.findViewById(R.id.spin_province);
-        citySpinner = view.findViewById(R.id.spin_city);
-        countySpinner = view.findViewById(R.id.spin_county);
-
-
-//        Spinner spinner = (Spinner) view.findViewById(R.id.spinner1);
-//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @SuppressLint("WrongConstant")
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view,
-//                                       int pos, long id) {
-//
-//                String[] languages = getResources().getStringArray(R.array.languages);
-//                Toast.makeText(getActivity(), "你点击的是:"+languages[pos], 2000).show();
-//            }
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//                // Another interface callback
-//            }
-//        });
-        listView = rootView.findViewById(R.id.listview);
         getData();
+        setlistener();
         return rootView;
     }
 
     public void getData() {
         sp = getContext().getSharedPreferences("loginToken", Context.MODE_PRIVATE);
         //获取Token;
+        listView = rootView.findViewById(R.id.listview);
         String token = sp.getString("token", null);
         final List<Map<String, Object>> list = new ArrayList<>();
         ExamServiceyhs u = HttpHelper.getInstance().getRetrofitStr().create(ExamServiceyhs.class);
-        Call<ListExamRoom> call = u.GetExamRoom1(token);
+        Call<ListExamRoom> call = u.GetExamRoom1(token, major, complete, timestate);
         call.enqueue(new Callback<ListExamRoom>() {
             @Override
             public void onResponse(Call<ListExamRoom> call, Response<ListExamRoom> response) {
@@ -148,7 +127,6 @@ public class FragmentExam extends Fragment {
                 }
                 ListViewAdapter adapter = new ListViewAdapter(getActivity(), list);
                 listView.setAdapter(adapter);
-                setlistener(list);
             }
 
             @Override
@@ -158,14 +136,13 @@ public class FragmentExam extends Fragment {
         });
     }
 
-    public void setlistener(final List<Map<String, Object>> list) {
-        listView = rootView.findViewById(R.id.listview);
+    public void setlistener() {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(final AdapterView<?> parent, View view, final int position, long id) {
                 //我们需要的内容，跳转页面或显示详细信息
                 //System.out.println(adapter.getItem(position));
-                final Map<String, Object> mapall = list.get(position);
+                final Map<String, Object> mapall = (Map<String, Object>) parent.getItemAtPosition(position);
                 MyApp.papername = mapall.get("name").toString();
                 MyApp.roomid = mapall.get("roomid").toString();
                 ExamServiceyhs u = HttpHelper.getInstance().getRetrofitStr().create(ExamServiceyhs.class);
@@ -186,7 +163,7 @@ public class FragmentExam extends Fragment {
                                     .setPositiveButton("是", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialogInterface, int i) {
-                                            Map<String, Object> map = list.get(i + 1);
+                                            Map<String, Object> map = (Map<String, Object>) parent.getItemAtPosition(i + 1);
                                             Intent intent = new Intent(getActivity(), ExamStartActivity.class);
                                             intent.putExtra("type", map.get("type").toString());
                                             startActivity(intent);
@@ -202,6 +179,30 @@ public class FragmentExam extends Fragment {
                         Log.e("fail", "onFailure: ");
                     }
                 });
+            }
+        });
+
+        spin_major = rootView.findViewById(R.id.exam_spin_major);
+        spin_complete = rootView.findViewById(R.id.exam_spin_complete);
+        spin_time = rootView.findViewById(R.id.exam_spin_time);
+        setspinlisten(spin_major);
+        setspinlisten(spin_complete);
+        setspinlisten(spin_time);
+    }
+
+    public void setspinlisten(Spinner spinner) {
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                major = spin_major.getSelectedItem().toString();
+                complete = spin_complete.getSelectedItem().toString();
+                timestate = spin_time.getSelectedItem().toString();
+                getData();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
     }
@@ -238,5 +239,4 @@ public class FragmentExam extends Fragment {
         }
         return true;
     }
-
 }
