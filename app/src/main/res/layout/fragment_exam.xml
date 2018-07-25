@@ -21,41 +21,40 @@
             android:visibility="visible">
 
             <Spinner
-                android:id="@+id/spin_province"
+                android:id="@+id/exam_spin_major"
                 android:layout_width="125dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="0dp"
-                android:dropDownWidth="match_parent"
+                android:dropDownWidth="125dp"
                 android:entries="@array/categary"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:overlapAnchor="false" />
 
             <Spinner
-                android:id="@+id/spin_city"
+                android:id="@+id/exam_spin_complete"
                 android:layout_width="120dp"
                 android:layout_height="40dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:dropDownWidth="match_parent"
+                android:dropDownWidth="120dp"
                 android:entries="@array/done"
                 android:textAlignment="center"
-                android:theme="?attr/dropDownListViewStyle" />
+                android:overlapAnchor="false" />
 
             <Spinner
-                android:id="@+id/spin_county"
+                android:id="@+id/exam_spin_time"
                 android:layout_width="125dp"
                 android:layout_height="40dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
-                android:dropDownWidth="match_parent"
+                android:dropDownWidth="125dp"
+                android:textAlignment="center"
                 android:entries="@array/timeAsc"
-                android:textAlignment="center" />
+                android:overlapAnchor="false" />
 
         </RelativeLayout>
 
-
-
     </android.support.v4.widget.NestedScrollView>
-
     <ListView
         android:id="@+id/listview"
         android:layout_width="match_parent"
@@ -65,6 +64,5 @@
         android:dividerHeight="2dp">
 
     </ListView>
-
 
 </FrameLayout>

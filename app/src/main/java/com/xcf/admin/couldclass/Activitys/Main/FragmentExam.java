@@ -9,12 +9,16 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.xcf.admin.couldclass.Activitys.Exam.ExamAddActivity;
 import com.xcf.admin.couldclass.Activitys.Exam.ExamEndActivity;
 import com.xcf.admin.couldclass.Activitys.Exam.ExamStartActivity;
 import com.xcf.admin.couldclass.Adapter.ListViewAdapter;
@@ -201,5 +205,38 @@ public class FragmentExam extends Fragment {
 
             }
         });
+    }
+
+    // 菜单点击
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.add_exam_menu, menu);//加载menu文件到布局
+//        Intent intent = new Intent(getActivity(), ExamAddActivity.class);
+//        startActivity(intent);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);  // 这是关键的一句
+    }
+
+    /**
+     * 菜单的点击事件
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.save_select_ter:
+                //Toast.makeText(getActivity(), "你点击了 添加！", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), ExamAddActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                break;
+        }
+        return true;
     }
 }
