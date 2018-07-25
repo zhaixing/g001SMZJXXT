@@ -142,7 +142,7 @@
                     android:visibility="visible">
 
                     <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/default_user_image"
+                        android:id="@+id/default_user_image2"
                         android:layout_width="99dp"
                         android:layout_height="match_parent"
                         android:layout_alignParentEnd="true"

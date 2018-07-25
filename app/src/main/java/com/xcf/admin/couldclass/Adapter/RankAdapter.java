@@ -1,7 +1,6 @@
 package com.xcf.admin.couldclass.Adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.xcf.admin.couldclass.R;
 
 import java.util.List;
@@ -66,9 +67,10 @@ public class RankAdapter extends BaseAdapter {
         }
         //绑定数据
         zujian.rank.setText(data.get(i).get("rank").toString());
-        zujian.imageView.setImageBitmap((Bitmap) data.get(i).get("image"));
-        zujian.name.setText((String) data.get(i).get("name"));
-        zujian.score.setText((String) data.get(i).get("score"));
+        //zujian.imageView.setImageBitmap((Bitmap) data.get(i).get("image"));
+        Glide.with(context).load(data.get(i).get("image")).diskCacheStrategy(DiskCacheStrategy.RESULT).into(zujian.imageView);
+        zujian.name.setText(data.get(i).get("name").toString());
+        zujian.score.setText(data.get(i).get("score").toString());
         return view;
     }
 }

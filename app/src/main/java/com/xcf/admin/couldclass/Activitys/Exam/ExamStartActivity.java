@@ -3,16 +3,12 @@ package com.xcf.admin.couldclass.Activitys.Exam;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-import com.xcf.admin.couldclass.Dao.ExamServiceyhs;
-import com.xcf.admin.couldclass.Entity.examroom.Appques;
-import com.xcf.admin.couldclass.MyContext.HttpHelper;
 import com.xcf.admin.couldclass.MyContext.MyApp;
 import com.xcf.admin.couldclass.R;
 
@@ -20,10 +16,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ExamStartActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -37,27 +29,7 @@ public class ExamStartActivity extends AppCompatActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exam_start);
-        Intent intent = getIntent();
-        String roomid = intent.getStringExtra("roomid");
-        MyApp.roomid = roomid;//将考场ID设置为全局变量
-        String userid = intent.getStringExtra("userid");
-        ExamServiceyhs u = HttpHelper.getInstance().getRetrofitStr().create(ExamServiceyhs.class);
-        Call<Appques> call = u.Getpaper(userid, roomid);
-        call.enqueue(new Callback<Appques>() {
-            @Override
-            public void onResponse(Call<Appques> call, Response<Appques> response) {
-                Log.e("success", "onResponse: " + response.body());
-                MyApp.appquesmain = response.body();
-                //获取考题
-                Log.e("俺是谁？", "onResponse: " + MyApp.appquesmain);
-                setListener();
-            }
-            @Override
-            public void onFailure(Call<Appques> call, Throwable t) {
-                Log.e("fail", "onFailure: ");
-            }
-        });
-        Log.e(">>", "onCreate: 06");
+        setListener();
     }
 
     public void setListener() {
@@ -67,9 +39,7 @@ public class ExamStartActivity extends AppCompatActivity implements View.OnClick
         title2 = findViewById(R.id.exam_start_title2);
         //context可能有错误
         Intent intent = getIntent();
-        MyApp.papername = intent.getStringExtra("name");
         String type = intent.getStringExtra("type");
-        MyApp.questionsum = MyApp.appquesmain.getS().size() + MyApp.appquesmain.getD().size() + MyApp.appquesmain.getP().size();
         String nandu = null;
         if (type.equals("0")) {
             nandu = "易";
@@ -114,6 +84,7 @@ public class ExamStartActivity extends AppCompatActivity implements View.OnClick
         switch (view.getId()) {
             case R.id.exam_start_button: {
                 Intent intent = new Intent(this, ExamAnswerActivity.class);
+                intent.putExtra("goit", "yes");
                 startActivity(intent);
                 finish();
             }

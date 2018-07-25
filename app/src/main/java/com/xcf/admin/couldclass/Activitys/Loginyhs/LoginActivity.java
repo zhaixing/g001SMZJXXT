@@ -18,6 +18,7 @@ import com.wang.avi.AVLoadingIndicatorView;
 import com.xcf.admin.couldclass.Dao.UserService;
 import com.xcf.admin.couldclass.Entity.login.loginuser;
 import com.xcf.admin.couldclass.Entity.user.User;
+import com.xcf.admin.couldclass.MyContext.ClientContext;
 import com.xcf.admin.couldclass.MyContext.HttpHelper;
 import com.xcf.admin.couldclass.MyContext.MessageContext;
 import com.xcf.admin.couldclass.MyContext.MyApp;
@@ -134,6 +135,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     editor.putString("major", response.body().getMajor());
                     editor.putString("xianzhi", response.body().getXianzhi());
                     editor.putString("token", user.getToken());
+                    editor.putString("imagehead", ClientContext.My_ip + user.getUser_Image_Head());
                     editor.commit();
                     Intent intent = new Intent();
                     ComponentName comp = new ComponentName("com.xcf.admin.couldclass", "com.xcf.admin.couldclass.Activitys.Main.MainActivity");

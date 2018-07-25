@@ -1,6 +1,7 @@
 package com.xcf.admin.couldclass.Activitys.Exam;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,16 +11,18 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.xcf.admin.couldclass.Dao.ExamServiceyhs;
+import com.xcf.admin.couldclass.Entity.examroom.Examend;
 import com.xcf.admin.couldclass.Entity.result.ResultQues;
 import com.xcf.admin.couldclass.MyContext.HttpHelper;
+import com.xcf.admin.couldclass.MyContext.MessageContext;
 import com.xcf.admin.couldclass.MyContext.MyApp;
 import com.xcf.admin.couldclass.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,14 +43,30 @@ public class ExamEndActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MyApp.falselist.clear();
         setContentView(R.layout.activity_exam_end);
         setListener();
     }
     @Override
     public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.exam_end_button1: {
+                Intent intent = new Intent(this, ExamAnswerActivity.class);
+                intent.putExtra("goit", "no1");
+                this.finish();
+                startActivity(intent);
+                break;
+            }
+            case R.id.exam_end_button2: {
+                Intent intent = new Intent(this, ExamAnswerActivity.class);
+                intent.putExtra("goit", "no2");
+                this.finish();
+                startActivity(intent);
+                break;
+            }
+        }
 
     }
-
     public void setListener() {
         listView = findViewById(R.id.exam_end_list);
         button1 = findViewById(R.id.exam_end_button1);//全部解析
@@ -56,17 +75,19 @@ public class ExamEndActivity extends AppCompatActivity implements View.OnClickLi
         enddate = findViewById(R.id.exam_end_date);
         score = findViewById(R.id.exam_end_score);
         title.setText(MyApp.papername);
-        Date date = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd HH:mm");
-        enddate.setText("交卷时间：" + format.format(date));
+        final SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
         //context可能有错误
         ExamServiceyhs u = HttpHelper.getInstance().getRetrofitStr().create(ExamServiceyhs.class);
         SharedPreferences sp = getSharedPreferences("loginToken", Context.MODE_PRIVATE);
         String userid = sp.getString("userid", null);
-        Call<List<ResultQues>> call = u.examend(userid, MyApp.roomid);
-        call.enqueue(new Callback<List<ResultQues>>() {
+        System.out.println("userid=" + userid);
+        System.out.println("roomid=" + MyApp.roomid);
+        Call<Examend> call = u.examend(userid, MyApp.roomid);
+        call.enqueue(new Callback<Examend>() {
             @Override
-            public void onResponse(Call<List<ResultQues>> call, Response<List<ResultQues>> response) {
+            public void onResponse(Call<Examend> call, Response<Examend> response) {
+                enddate.setText("交卷时间：" + format.format(response.body().getDate()));
+                System.out.println("交卷时间" + response.body().getDate());
                 List<Map<String, String>> data = new ArrayList<Map<String, String>>();
                 for (int i = 0; i <= MyApp.appquesmain.getS().size(); i++) {
                     Map<String, String> map = new HashMap<String, String>();
@@ -75,13 +96,14 @@ public class ExamEndActivity extends AppCompatActivity implements View.OnClickLi
                         map.put("text2", "");
                     } else {
                         map.put("text1", i + "." + MyApp.appquesmain.getS().get(i - 1).getQuesyhsname());
-                        for (ResultQues resultQues : response.body()
+                        for (ResultQues resultQues : response.body().getList()
                                 ) {
-                            System.out.println(resultQues.getQues().getQ_Id());
-                            System.out.println(MyApp.appquesmain.getS().get(i - 1).getQuesyhsid());
                             if (resultQues.getQues().getQ_Id().equals(MyApp.appquesmain.getS().get(i - 1).getQuesyhsid())) {
                                 map.put("text2", resultQues.getReal_Score() + "分");
                                 Log.e("sddfd ", "onResponse: 测试成功");
+                                if (resultQues.getReal_Score() == 0) {
+                                    MyApp.falselist.add(i);
+                                }
                                 break;
                             }
                         }
@@ -95,10 +117,13 @@ public class ExamEndActivity extends AppCompatActivity implements View.OnClickLi
                         map.put("text2", "");
                     } else {
                         map.put("text1", i + "." + MyApp.appquesmain.getD().get(i - 1).getQuesyhsname());
-                        for (ResultQues resultQues : response.body()
+                        for (ResultQues resultQues : response.body().getList()
                                 ) {
                             if (resultQues.getQues().getQ_Id().equals(MyApp.appquesmain.getD().get(i - 1).getQuesyhsid())) {
                                 map.put("text2", resultQues.getReal_Score() + "分");
+                                if (resultQues.getReal_Score() == 0) {
+                                    MyApp.falselist.add(MyApp.appquesmain.getS().size() + i);
+                                }
                                 break;
                             }
                         }
@@ -112,10 +137,13 @@ public class ExamEndActivity extends AppCompatActivity implements View.OnClickLi
                         map.put("text2", "");
                     } else {
                         map.put("text1", i + "." + MyApp.appquesmain.getP().get(i - 1).getQuesyhsname());
-                        for (ResultQues resultQues : response.body()
+                        for (ResultQues resultQues : response.body().getList()
                                 ) {
                             if (resultQues.getQues().getQ_Id().equals(MyApp.appquesmain.getP().get(i - 1).getQuesyhsid())) {
                                 map.put("text2", resultQues.getReal_Score() + "分");
+                                if (resultQues.getReal_Score() == 0) {
+                                    MyApp.falselist.add(MyApp.appquesmain.getS().size() + MyApp.appquesmain.getD().size() + i);
+                                }
                                 break;
                             }
                         }
@@ -123,7 +151,7 @@ public class ExamEndActivity extends AppCompatActivity implements View.OnClickLi
                     data.add(map);
                 }
                 int realscore = 0;
-                for (ResultQues resultQues : response.body()
+                for (ResultQues resultQues : response.body().getList()
                         ) {
                     realscore += resultQues.getReal_Score();
                 }
@@ -136,50 +164,11 @@ public class ExamEndActivity extends AppCompatActivity implements View.OnClickLi
             }
 
             @Override
-            public void onFailure(Call<List<ResultQues>> call, Throwable t) {
-
+            public void onFailure(Call<Examend> call, Throwable t) {
+                Toast.makeText(ExamEndActivity.this, MessageContext.INTNET_ERROR, Toast.LENGTH_SHORT).show();
             }
         });
-
-
         button1.setOnClickListener(this);
         button2.setOnClickListener(this);
-    }
-
-    public List<Map<String, String>> getData() {
-        List<Map<String, String>> data = new ArrayList<Map<String, String>>();
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("text1", "选择题");
-        map.put("text2", "");
-        data.add(map);
-        Map<String, String> map1 = new HashMap<String, String>();
-        map1.put("text1", "1. 铁鞋的组成");
-        map1.put("text2", "2分");
-        data.add(map1);
-        Map<String, String> map2 = new HashMap<String, String>();
-        map2.put("text1", "2. 进路信号机的组成");
-        map2.put("text2", "3分");
-        data.add(map2);
-        Map<String, String> map3 = new HashMap<String, String>();
-        map3.put("text1", "3. 路基的危害类型");
-        map3.put("text2", "3分");
-        data.add(map3);
-        Map<String, String> map4 = new HashMap<String, String>();
-        map4.put("text1", "判断题");
-        map4.put("text2", "");
-        data.add(map4);
-        Map<String, String> map5 = new HashMap<String, String>();
-        map5.put("text1", "1. 铁鞋的组成");
-        map5.put("text2", "2分");
-        data.add(map5);
-        Map<String, String> map6 = new HashMap<String, String>();
-        map6.put("text1", "2. 进路信号机的组成");
-        map6.put("text2", "3分");
-        data.add(map6);
-        Map<String, String> map7 = new HashMap<String, String>();
-        map7.put("text1", "3. 路基的危害类型");
-        map7.put("text2", "3分");
-        data.add(map7);
-        return data;
     }
 }

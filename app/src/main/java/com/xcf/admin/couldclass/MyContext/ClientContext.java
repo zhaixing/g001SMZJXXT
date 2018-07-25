@@ -6,4 +6,5 @@ package com.xcf.admin.couldclass.MyContext;
 
 public interface ClientContext {
     String COOKIE_STORE = "";
+    String My_ip = "http://192.168.1.86:8080/pages/exampage/upload/";
 }

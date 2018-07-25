@@ -48,4 +48,6 @@ dependencies {
     implementation project(':wheelview')
 //    implementation project(':expandpoptab-library')
     implementation project(':AVLoadingIndicatorView')
+
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
 }

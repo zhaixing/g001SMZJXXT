@@ -142,7 +142,6 @@ public class Appques {
         public void setQuesyhstrue(List quesyhstrue) {
             this.quesyhstrue = quesyhstrue;
         }
-
         private List quesyhstrue;
     }
 }

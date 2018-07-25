@@ -9,9 +9,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.xcf.admin.couldclass.Activitys.Personal.PersonActivity;
 import com.xcf.admin.couldclass.Activitys.Personal.SettingActivity;
 import com.xcf.admin.couldclass.R;
@@ -25,6 +27,7 @@ public class FragmentMe extends Fragment implements View.OnClickListener {
     TextView mymajor;
     TextView myposition;
     TextView name;
+    ImageView imageView;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanseState) {
@@ -47,12 +50,14 @@ public class FragmentMe extends Fragment implements View.OnClickListener {
 
         USER = getActivity().findViewById(R.id.user_not_login);
         USER.setOnClickListener(this);
-
+        imageView = getActivity().findViewById(R.id.default_user_image1);
+        SharedPreferences sp = getContext().getSharedPreferences("loginToken", Context.MODE_PRIVATE);
+        Glide.with(this).load(sp.getString("imagehead", null)).override(150, 150) // resizes the image to these dimensions (in pixel). does not respect aspect ratio
+                .into(imageView);
         myorg = getActivity().findViewById(R.id.view_my_org);
         mymajor = getActivity().findViewById(R.id.view_my_major);
         myposition = getActivity().findViewById(R.id.view_my_position);
         name = getActivity().findViewById(R.id.btn_user);
-        SharedPreferences sp = getContext().getSharedPreferences("loginToken", Context.MODE_PRIVATE);
         name.setText("姓名:  " + sp.getString("username", null));
         myorg.setText(sp.getString("org", null));
         mymajor.setText(sp.getString("major", null));

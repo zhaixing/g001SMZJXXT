@@ -19,11 +19,14 @@ import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.xcf.admin.couldclass.Activitys.Exam.ExamAddActivity;
+import com.xcf.admin.couldclass.Activitys.Exam.ExamEndActivity;
 import com.xcf.admin.couldclass.Activitys.Exam.ExamStartActivity;
 import com.xcf.admin.couldclass.Adapter.ListViewAdapter;
 import com.xcf.admin.couldclass.Dao.ExamServiceyhs;
+import com.xcf.admin.couldclass.Entity.examroom.Appques;
 import com.xcf.admin.couldclass.Entity.examroom.ListExamRoom;
 import com.xcf.admin.couldclass.MyContext.HttpHelper;
+import com.xcf.admin.couldclass.MyContext.MyApp;
 import com.xcf.admin.couldclass.R;
 
 import java.text.SimpleDateFormat;
@@ -102,9 +105,12 @@ public class FragmentExam extends Fragment {
                         HashMap<String, Object> hashMap = new HashMap();
                         //Date curr=new Date(examlist.getStarttime());
                         //System.out.println(format.format(new Date(examlist.getStarttime())));
-                        hashMap.put("date", examlist.getStartdate() + "~" + examlist.getEnddate());
-                        hashMap.put("time", examlist.getStarttime().replace("上午", "AM").replace("下午", "PM")
-                                + "~" + examlist.getEndtime().replace("上午", "AM").replace("下午", "PM"));
+                        if (examlist.getStartdate() != null && examlist.getEnddate() != null) {
+                            hashMap.put("date", examlist.getStartdate() + "~" + examlist.getEnddate());
+                        } else {
+                            hashMap.put("date", "全年开放");
+                        }
+                        hashMap.put("time", examlist.getStarttime() + "~" + examlist.getEndtime());
                         hashMap.put("name", examlist.getExamroomname());
                         hashMap.put("roomid", examlist.getExamroomid());
                         hashMap.put("type", examlist.getType());
@@ -159,22 +165,43 @@ public class FragmentExam extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //我们需要的内容，跳转页面或显示详细信息
                 //System.out.println(adapter.getItem(position));
-                new AlertDialog.Builder(getActivity())
-                        .setMessage("开始考试！")
-                        .setPositiveButton("是", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                Map<String, Object> map = list.get(i + 1);
-                                Intent intent = new Intent(getActivity(), ExamStartActivity.class);
-                                intent.putExtra("roomid", map.get("roomid").toString());
-                                intent.putExtra("userid", sp.getString("userid", null));
-                                intent.putExtra("type", map.get("type").toString());
-                                intent.putExtra("name", map.get("name").toString());
-                                startActivity(intent);
-                            }
-                        })
-                        .setNegativeButton("否", null)
-                        .show();
+                final Map<String, Object> mapall = list.get(position);
+                MyApp.papername = mapall.get("name").toString();
+                MyApp.roomid = mapall.get("roomid").toString();
+                ExamServiceyhs u = HttpHelper.getInstance().getRetrofitStr().create(ExamServiceyhs.class);
+                Call<Appques> call = u.Getpaper(sp.getString("userid", null), MyApp.roomid);
+                call.enqueue(new Callback<Appques>() {
+                    @Override
+                    public void onResponse(Call<Appques> call, Response<Appques> response) {
+                        Log.e("success", "onResponse: " + response.body());
+                        MyApp.appquesmain = response.body();
+                        MyApp.questionsum = MyApp.appquesmain.getS().size() + MyApp.appquesmain.getD().size() + MyApp.appquesmain.getP().size();
+                        //获取考题
+                        if (mapall.get("complete").equals("已完成")) {
+                            Intent intent = new Intent(getActivity(), ExamEndActivity.class);
+                            startActivity(intent);
+                        } else {
+                            new AlertDialog.Builder(getActivity())
+                                    .setMessage("开始考试！")
+                                    .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            Map<String, Object> map = list.get(i + 1);
+                                            Intent intent = new Intent(getActivity(), ExamStartActivity.class);
+                                            intent.putExtra("type", map.get("type").toString());
+                                            startActivity(intent);
+                                        }
+                                    })
+                                    .setNegativeButton("否", null)
+                                    .show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Appques> call, Throwable t) {
+                        Log.e("fail", "onFailure: ");
+                    }
+                });
             }
         });
     }
@@ -209,7 +236,6 @@ public class FragmentExam extends Fragment {
             default:
                 break;
         }
-
         return true;
     }
 

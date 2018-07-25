@@ -9,16 +9,19 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.xcf.admin.couldclass.Dao.ExamServiceyhs;
+import com.xcf.admin.couldclass.Entity.examroom.Appques;
 import com.xcf.admin.couldclass.MyContext.HttpHelper;
+import com.xcf.admin.couldclass.MyContext.MessageContext;
 import com.xcf.admin.couldclass.MyContext.MyApp;
 import com.xcf.admin.couldclass.R;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -37,16 +40,21 @@ public class ExamAnswerActivity extends AppCompatActivity implements View.OnClic
     TextView questionnum;
     TextView questionsum;
     TextView ques;
+    TextView textViewtrue;
     Button last;
     Button next;
+    Button jiaojuan;
+    LinearLayout linearLayouttrue;
+    LinearLayout linearLayout2;
     int quesnumber = 1;
     String userid; //用户id
     Long q_id;//题号
-    HashMap<Integer, List<String>> hashMap = new HashMap<>();
     ExamServiceyhs setanswer = HttpHelper.getInstance().getRetrofitStr().create(ExamServiceyhs.class);
     List<String> list = new ArrayList<>();
     List<CheckBox> checkBoxes = new ArrayList<>();
-
+    Appques.quesyhs quesyhs = MyApp.appquesmain.new quesyhs();
+    int falsei = 0;//第几个错题
+    String yesorno = null;//用于判断是错题解析还是全部解析或者不是解析
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,94 +70,39 @@ public class ExamAnswerActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.exam_answer_radioButtonA: {
-                SPadd("A", radioButtonA);
-                getselected();
+                List<String> list1 = new ArrayList<>();
+                list1.add("A");
+                SPadd(list1, radioButtonA);
                 break;
             }
             case R.id.exam_answer_radioButtonB: {
-                SPadd("B", radioButtonB);
-                getselected();
+                List<String> list1 = new ArrayList<>();
+                list1.add("B");
+                SPadd(list1, radioButtonB);
                 break;
             }
             case R.id.exam_answer_radioButtonC: {
-                SPadd("C", radioButtonC);
-                getselected();
+                List<String> list1 = new ArrayList<>();
+                list1.add("C");
+                SPadd(list1, radioButtonC);
                 break;
             }
             case R.id.exam_answer_radioButtonD: {
-                SPadd("D", radioButtonD);
-                getselected();
+                List<String> list1 = new ArrayList<>();
+                list1.add("D");
+                SPadd(list1, radioButtonD);
                 break;
             }
             case R.id.exam_answer_last: {
-                if (quesnumber != 1) {
-                    if (radioButtonA.isChecked()) {
-                        list.add("A");
-                    }
-                    if (radioButtonB.isChecked()) {
-                        list.add("B");
-                    }
-                    if (radioButtonC.isChecked()) {
-                        list.add("C");
-                    }
-                    if (radioButtonD.isChecked()) {
-                        list.add("D");
-                    }
-                    Gson gson = new Gson();
-                    hashMap.put(quesnumber, list);
-                    Call call = setanswer.setselected(userid, MyApp.roomid, gson.toJson(list), q_id.toString());
-                    call.enqueue(new Callback() {
-                        @Override
-                        public void onResponse(Call call, Response response) {
-                            Log.e("这次", "onResponse: 成功了");
-                        }
-                        @Override
-                        public void onFailure(Call call, Throwable t) {
-                        }
-                    });
-                    quesnumber -= 1;
-                    list = new ArrayList<>();
-                    getdata();
-                    getselected();
-                }
+                lastnext("last");
                 break;
             }
             case R.id.exam_answer_next: {
-                if (radioButtonA.isChecked()) {
-                    list.add("A");
-                }
-                if (radioButtonB.isChecked()) {
-                    list.add("B");
-                }
-                if (radioButtonC.isChecked()) {
-                    list.add("C");
-                }
-                if (radioButtonD.isChecked()) {
-                    list.add("D");
-                }
-                Gson gson = new Gson();
-                hashMap.put(quesnumber, list);
-                Call call = setanswer.setselected(userid, MyApp.roomid, gson.toJson(list), q_id.toString());
-                call.enqueue(new Callback() {
-                    @Override
-                    public void onResponse(Call call, Response response) {
-                        Log.e("这次", "onResponse: 成功了");
-                    }
-
-                    @Override
-                    public void onFailure(Call call, Throwable t) {
-                    }
-                });
-                if (quesnumber != MyApp.questionsum) {
-                    list = new ArrayList<>();
-                    quesnumber += 1;
-                    getdata();
-                    getselected();
-                } else {
-                    Intent intent = new Intent(this, ExamEndActivity.class);
-                    startActivity(intent);
-                }
+                lastnext("next");
                 break;
+            }
+            case R.id.exam_answer_jj: {
+                lastnext("jiaojuan");
             }
         }
     }
@@ -159,6 +112,7 @@ public class ExamAnswerActivity extends AppCompatActivity implements View.OnClic
         questionnum = findViewById(R.id.exam_answer_quesnum);
         questionsum = findViewById(R.id.exam_answer_quesnum1);
         ques = findViewById(R.id.exam_answer_ques);
+        textViewtrue = findViewById(R.id.exam_answer_true);
         radioButtonA = findViewById(R.id.exam_answer_radioButtonA);
         radioButtonB = findViewById(R.id.exam_answer_radioButtonB);
         radioButtonC = findViewById(R.id.exam_answer_radioButtonC);
@@ -169,12 +123,37 @@ public class ExamAnswerActivity extends AppCompatActivity implements View.OnClic
         checkBoxes.add(radioButtonD);
         last = findViewById(R.id.exam_answer_last);
         next = findViewById(R.id.exam_answer_next);
+        jiaojuan = findViewById(R.id.exam_answer_jj);
+        linearLayouttrue = findViewById(R.id.linearLayouttrue);
+        linearLayout2 = findViewById(R.id.linearLayout2);
+        Intent intent = getIntent();
+        yesorno = intent.getStringExtra("goit");
+        System.out.println(yesorno);
+        if (yesorno.equals("no1")) {
+            linearLayouttrue.setVisibility(View.VISIBLE);
+            radioButtonA.setEnabled(false);
+            radioButtonB.setEnabled(false);
+            radioButtonC.setEnabled(false);
+            radioButtonD.setEnabled(false);
+            jiaojuan.setEnabled(false);
+        } else if (yesorno.equals("no2")) {
+            linearLayouttrue.setVisibility(View.VISIBLE);
+            radioButtonA.setEnabled(false);
+            radioButtonB.setEnabled(false);
+            radioButtonC.setEnabled(false);
+            radioButtonD.setEnabled(false);
+            jiaojuan.setEnabled(false);
+            if (falsei < MyApp.falselist.size()) {
+                quesnumber = MyApp.falselist.get(falsei);
+            }
+        }
         radioButtonA.setOnClickListener(this);
         radioButtonB.setOnClickListener(this);
         radioButtonC.setOnClickListener(this);
         radioButtonD.setOnClickListener(this);
         last.setOnClickListener(this);
         next.setOnClickListener(this);
+        jiaojuan.setOnClickListener(this);
     }
 
     public void getdata() {
@@ -187,35 +166,58 @@ public class ExamAnswerActivity extends AppCompatActivity implements View.OnClic
         radioButtonD.setChecked(false);
         if (quesnumber <= MyApp.appquesmain.getS().size()) {
             int i = quesnumber - 1;
-            q_id = MyApp.appquesmain.getS().get(i).getQuesyhsid();
-            ques.setText(MyApp.appquesmain.getS().get(i).getQuesyhsname());
-            radioButtonA.setText("A、" + MyApp.appquesmain.getS().get(i).getQuesyhsAname());
-            radioButtonB.setText("B、" + MyApp.appquesmain.getS().get(i).getQuesyhsBname());
+            quesyhs = MyApp.appquesmain.getS().get(i);
+            q_id = quesyhs.getQuesyhsid();
+            ques.setText(quesyhs.getQuesyhsname());
+            getselected(quesyhs.getQuesyhsselected());
+            radioButtonA.setText("A、" + quesyhs.getQuesyhsAname());
+            radioButtonB.setText("B、" + quesyhs.getQuesyhsBname());
             radioButtonC.setVisibility(View.VISIBLE);
             radioButtonD.setVisibility(View.VISIBLE);
-            radioButtonC.setText("C、" + MyApp.appquesmain.getS().get(i).getQuesyhsCname());
-            radioButtonD.setText("D、" + MyApp.appquesmain.getS().get(i).getQuesyhsDname());
+            radioButtonC.setText("C、" + quesyhs.getQuesyhsCname());
+            radioButtonD.setText("D、" + quesyhs.getQuesyhsDname());
+            String trueselect = "";
+            for (Object object : quesyhs.getQuesyhstrue()
+                    ) {
+                trueselect += object.toString();
+            }
+            textViewtrue.setText(trueselect);
         } else if (quesnumber <= (MyApp.appquesmain.getS().size() + MyApp.appquesmain.getD().size())) {
             int i = quesnumber - MyApp.appquesmain.getS().size() - 1;
-            q_id = MyApp.appquesmain.getD().get(i).getQuesyhsid();
-            ques.setText(MyApp.appquesmain.getD().get(i).getQuesyhsname());
-            radioButtonA.setText("A、" + MyApp.appquesmain.getD().get(i).getQuesyhsAname());
-            radioButtonB.setText("B、" + MyApp.appquesmain.getD().get(i).getQuesyhsBname());
+            quesyhs = MyApp.appquesmain.getD().get(i);
+            q_id = quesyhs.getQuesyhsid();
+            ques.setText(quesyhs.getQuesyhsname());
+            getselected(quesyhs.getQuesyhsselected());
+            radioButtonA.setText("A、" + quesyhs.getQuesyhsAname());
+            radioButtonB.setText("B、" + quesyhs.getQuesyhsBname());
             radioButtonC.setVisibility(View.VISIBLE);
             radioButtonD.setVisibility(View.VISIBLE);
-            radioButtonC.setText("C、" + MyApp.appquesmain.getD().get(i).getQuesyhsCname());
-            radioButtonD.setText("D、" + MyApp.appquesmain.getD().get(i).getQuesyhsDname());
+            radioButtonC.setText("C、" + quesyhs.getQuesyhsCname());
+            radioButtonD.setText("D、" + quesyhs.getQuesyhsDname());
+            String trueselect = "";
+            for (Object object : quesyhs.getQuesyhstrue()
+                    ) {
+                trueselect += object.toString();
+            }
+            textViewtrue.setText(trueselect);
         } else if (quesnumber <= MyApp.questionsum) {
             int i = quesnumber - MyApp.appquesmain.getS().size() - MyApp.appquesmain.getD().size() - 1;
-            q_id = MyApp.appquesmain.getP().get(i).getQuesyhsid();
-            ques.setText(MyApp.appquesmain.getP().get(i).getQuesyhsname());
-            radioButtonA.setText("A、" + MyApp.appquesmain.getP().get(i).getQuesyhsAname());
-            radioButtonB.setText("B、" + MyApp.appquesmain.getP().get(i).getQuesyhsBname());
+            quesyhs = MyApp.appquesmain.getP().get(i);
+            q_id = quesyhs.getQuesyhsid();
+            ques.setText(quesyhs.getQuesyhsname());
+            getselected(quesyhs.getQuesyhsselected());
+            radioButtonA.setText("A、" + quesyhs.getQuesyhsAname());
+            radioButtonB.setText("B、" + quesyhs.getQuesyhsBname());
             radioButtonC.setVisibility(View.GONE);
             radioButtonD.setVisibility(View.GONE);
+            String trueselect = "";
+            for (Object object : quesyhs.getQuesyhstrue()
+                    ) {
+                trueselect += object.toString();
+            }
+            textViewtrue.setText(trueselect);
         }
     }
-
     public String gettype(int num) {   //判断类型
         String a = null;
         if (num <= MyApp.appquesmain.getS().size()) {
@@ -228,13 +230,10 @@ public class ExamAnswerActivity extends AppCompatActivity implements View.OnClic
         return a;
     }
 
-    public void getselected() {
+    public void getselected(List<String> list1) {
         try {
-            System.out.println(quesnumber);
-            hashMap.get(quesnumber);
-            for (String a : hashMap.get(quesnumber)
+            for (String a : list1
                     ) {
-                System.out.println(a);
                 if (a.equals("A")) {
                     radioButtonA.setChecked(true);
                 } else if (a.equals("B")) {
@@ -249,22 +248,19 @@ public class ExamAnswerActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    public void SPadd(String ABCD, CheckBox button) {
+    public void SPadd(List<String> ABCD, CheckBox button) {
         if ((!gettype(quesnumber).equals("D")) && (quesnumber != MyApp.questionsum)) {
             Gson gson = new Gson();
-            System.out.println("j");
-            list.add(ABCD);
-            hashMap.put(quesnumber, list);
+            list.addAll(ABCD);
+            quesyhs.setQuesyhsselected(list);
             Call<String> call = setanswer.setselected(userid, MyApp.roomid, gson.toJson(list), q_id.toString());
             call.enqueue(new Callback<String>() {
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
                     Log.e("dfdadf", "onResponse: 成功了没");
                 }
-
                 @Override
                 public void onFailure(Call<String> call, Throwable t) {
-
                 }
             });
             list = new ArrayList<>();
@@ -281,5 +277,76 @@ public class ExamAnswerActivity extends AppCompatActivity implements View.OnClic
                 }
             }
         }
+    }
+
+    public void lastnext(String string) {
+        List<String> list1 = new ArrayList<>();
+        if (radioButtonA.isChecked()) {
+            list1.add("A");
+        }
+        if (radioButtonB.isChecked()) {
+            list1.add("B");
+        }
+        if (radioButtonC.isChecked()) {
+            list1.add("C");
+        }
+        if (radioButtonD.isChecked()) {
+            list1.add("D");
+        }
+        list.addAll(list1);
+        quesyhs.setQuesyhsselected(list);
+        Gson gson = new Gson();
+        if ((!yesorno.equals("no1")) && (!yesorno.equals("no2"))) {
+            Call<String> call = setanswer.setselected(userid, MyApp.roomid, gson.toJson(list), q_id.toString());
+            call.enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    Log.e("dfdadf", "onResponse: 成功了没");
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+                }
+            });//保存本页内容
+        }
+        list = new ArrayList<>();
+        if (string.equals("last") && quesnumber != 1) {
+            if (yesorno.equals("no2")) {
+                if (falsei < MyApp.falselist.size() && falsei > 0) {
+                    falsei -= 1;
+                    quesnumber = MyApp.falselist.get(falsei);
+                }
+            } else {
+                quesnumber -= 1;
+            }
+        }
+        if (string.equals("next") && quesnumber != MyApp.questionsum) {
+            if (yesorno.equals("no2")) {
+                if (falsei < MyApp.falselist.size() - 1) {
+                    Log.e("", "lastnext: " + falsei + "size" + MyApp.falselist.size());
+                    falsei += 1;
+                    quesnumber = MyApp.falselist.get(falsei);
+                }
+            } else {
+                quesnumber += 1;
+            }
+        }
+        if (string.equals("jiaojuan")) {
+            Call<String> call1 = setanswer.changecomplete(userid, MyApp.roomid);
+            call1.enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    Intent intent = new Intent(ExamAnswerActivity.this, ExamEndActivity.class);
+                    ExamAnswerActivity.this.finish();
+                    startActivity(intent);
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+                    Toast.makeText(ExamAnswerActivity.this, MessageContext.INTNET_ERROR, Toast.LENGTH_SHORT).show();
+                }
+            });//保存本页内容
+        }
+        getdata();
     }
 }

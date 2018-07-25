@@ -5,6 +5,9 @@ import android.content.Context;
 
 import com.xcf.admin.couldclass.Entity.examroom.Appques;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.vov.vitamio.Vitamio;
 
 /**
@@ -31,4 +34,5 @@ public class MyApp extends Application {
     public static int questionsum;//题目的总数量
     public static String papername;//考场的名字
     public static String roomid;//(考场的id)
+    public static List<Integer> falselist = new ArrayList<>();
 }
