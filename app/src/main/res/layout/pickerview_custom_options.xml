@@ -73,14 +73,4 @@
         android:layout_height="0.5dp"
         android:background="#24ad9d" />
 
-    <TextView
-        android:id="@+id/tv_add"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#E5E9EC"
-        android:gravity="center"
-        android:text="+ 添加加油卡"
-        android:textColor="#24AD9D"
-        android:textSize="18sp" />
-
 </LinearLayout>

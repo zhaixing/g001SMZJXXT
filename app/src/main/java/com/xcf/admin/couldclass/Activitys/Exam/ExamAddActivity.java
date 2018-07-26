@@ -1,6 +1,9 @@
 package com.xcf.admin.couldclass.Activitys.Exam;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -24,8 +27,10 @@ import com.bigkoo.pickerview.listener.OnTimeSelectChangeListener;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
-import com.xcf.admin.couldclass.Activitys.Main.MainActivity;
+import com.xcf.admin.couldclass.Dao.ExamServiceyhs;
 import com.xcf.admin.couldclass.Entity.CardBean;
+import com.xcf.admin.couldclass.MyContext.HttpHelper;
+import com.xcf.admin.couldclass.MyContext.MessageContext;
 import com.xcf.admin.couldclass.R;
 import com.xcf.admin.couldclass.SysApplication.SysApplication;
 
@@ -34,7 +39,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
-public class ExamAddActivity extends AppCompatActivity {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class ExamAddActivity extends AppCompatActivity implements View.OnClickListener {
 
     public EditText et_add_exam_name;
     public TextView tvAddExamType = null;
@@ -44,6 +53,12 @@ public class ExamAddActivity extends AppCompatActivity {
     private TimePickerView pvTimeEnd;// 结束时间
     private TextView tv_add_exam_end;// 结束
     private TextView tv_add_exam_start;//开始
+    private TextView button;
+    private TextView snum;
+    private TextView dnum;
+    private TextView pnum;
+    Activity activity;
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +68,13 @@ public class ExamAddActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         SysApplication.getInstance().addActivity(this);
+        activity = this;
 
+        button = findViewById(R.id.submit_tv);
+        button.setOnClickListener(this);
+        snum = findViewById(R.id.add_exam_danxuan);
+        dnum = findViewById(R.id.add_exam_duoxuan);
+        pnum = findViewById(R.id.add_exam_panduan);
         et_add_exam_name = findViewById(R.id.add_exam_name);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
         Date dateNow=new Date(System.currentTimeMillis());
@@ -74,11 +95,16 @@ public class ExamAddActivity extends AppCompatActivity {
         initTimePicker();
         tv_add_exam_end = findViewById(R.id.add_exam_end);
         tv_add_exam_start = findViewById(R.id.add_exam_start);
+        Date now = new Date();
+        Long future = now.getTime() + 86400000 * 7;
+        Date fu = new Date(future);
+        tv_add_exam_start.setText(format.format(now));
         tv_add_exam_start.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 pvTimeStart.show(v);
             }
         });
+        tv_add_exam_end.setText(format.format(fu));
         tv_add_exam_end.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 pvTimeEnd.show(v);
@@ -114,9 +140,9 @@ public class ExamAddActivity extends AppCompatActivity {
                 .setLayoutRes(R.layout.pickerview_custom_options, new CustomListener() {
                     @Override
                     public void customLayout(View v) {
-                        final TextView tvSubmit = (TextView) v.findViewById(R.id.tv_finish);
-                        final TextView tvAdd = (TextView) v.findViewById(R.id.tv_add);
-                        ImageView ivCancel = (ImageView) v.findViewById(R.id.iv_cancel);
+                        final TextView tvSubmit = v.findViewById(R.id.tv_finish);
+                        //final TextView tvAdd = (TextView) v.findViewById(R.id.tv_add);
+                        ImageView ivCancel = v.findViewById(R.id.iv_cancel);
                         tvSubmit.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -132,13 +158,13 @@ public class ExamAddActivity extends AppCompatActivity {
                             }
                         });
 
-                        tvAdd.setOnClickListener(new View.OnClickListener() {
+                        /*tvAdd.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 getCardData();
                                 pvCustomOptions.setPicker(cardItem);
                             }
-                        });
+                        });*/
 
                     }
                 })
@@ -151,7 +177,10 @@ public class ExamAddActivity extends AppCompatActivity {
     }
 
     private void getCardData() {
-        for (int i = 0; i < 5; i++) {
+        cardItem.add(new CardBean(0, "运输"));
+        cardItem.add(new CardBean(1, "人身"));
+        cardItem.add(new CardBean(2, "管理"));
+       /* for (int i = 0; i < 5; i++) {
             cardItem.add(new CardBean(i, "No.ABC12345 " + i));
         }
 
@@ -160,7 +189,7 @@ public class ExamAddActivity extends AppCompatActivity {
                 String str_item = cardItem.get(i).getCardNo().substring(0, 6) + "...";
                 cardItem.get(i).setCardNo(str_item);
             }
-        }
+        }*/
     }
 
     private String getTime(Date date) {//可根据需要自行截取数据显示
@@ -173,7 +202,7 @@ public class ExamAddActivity extends AppCompatActivity {
         pvTimeStart = new TimePickerBuilder(this, new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {
-                Toast.makeText(ExamAddActivity.this,getTime(date),Toast.LENGTH_SHORT).show();
+                tv_add_exam_start.setText(format.format(date));
             }
         }).setTimeSelectChangeListener(new OnTimeSelectChangeListener() {
             @Override
@@ -206,7 +235,7 @@ public class ExamAddActivity extends AppCompatActivity {
         pvTimeEnd = new TimePickerBuilder(this, new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {
-                Toast.makeText(ExamAddActivity.this,getTime(date),Toast.LENGTH_SHORT).show();
+                tv_add_exam_end.setText(format.format(date));
             }
         }).setTimeSelectChangeListener(new OnTimeSelectChangeListener() {
             @Override
@@ -236,4 +265,49 @@ public class ExamAddActivity extends AppCompatActivity {
         }
     }
 
+    public boolean isnull() {
+        boolean bool = true;
+        if (et_add_exam_name.getText().equals("")) {
+            Toast.makeText(this, "名称不能为空", Toast.LENGTH_SHORT);
+            bool = false;
+        }
+        if (snum.getText().equals("") && dnum.getText().equals("") && pnum.getText().equals("")) {
+            Toast.makeText(this, "至少含有1道题", Toast.LENGTH_SHORT);
+            bool = false;
+        }
+        if (Integer.parseInt(snum.getText().toString()) + Integer.parseInt(dnum.getText().toString()) + Integer.parseInt(pnum.getText().toString()) == 0) {
+            Toast.makeText(this, "至少含有1道题", Toast.LENGTH_SHORT);
+            bool = false;
+        }
+        return bool;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.submit_tv: {
+                if (isnull()) {
+                    SharedPreferences sp = getSharedPreferences("loginToken", Context.MODE_PRIVATE);
+                    String token = sp.getString("token", null);
+                    ExamServiceyhs examService = HttpHelper.getInstance().getRetrofitStr().create(ExamServiceyhs.class);
+                    Call<String> call = examService.roomadd(token, et_add_exam_name.getText().toString(),
+                            tvAddExamType.getText().toString(), tv_add_exam_start.getText().toString(),
+                            tv_add_exam_end.getText().toString(), snum.getText().toString(), dnum.getText().toString(),
+                            pnum.getText().toString());
+                    call.enqueue(new Callback<String>() {
+                        @Override
+                        public void onResponse(Call<String> call, Response<String> response) {
+                            setResult(1);
+                            activity.finish();
+                        }
+
+                        @Override
+                        public void onFailure(Call<String> call, Throwable t) {
+                            Toast.makeText(activity, MessageContext.INTNET_ERROR, Toast.LENGTH_SHORT);
+                        }
+                    });
+                }
+            }
+        }
+    }
 }
