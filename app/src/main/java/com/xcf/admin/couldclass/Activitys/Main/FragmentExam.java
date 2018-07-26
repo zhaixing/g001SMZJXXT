@@ -72,7 +72,7 @@ public class FragmentExam extends Fragment {
         String token = sp.getString("token", null);
         final List<Map<String, Object>> list = new ArrayList<>();
         ExamServiceyhs u = HttpHelper.getInstance().getRetrofitStr().create(ExamServiceyhs.class);
-        Call<ListExamRoom> call = u.GetExamRoom1(token, major, complete, timestate);
+        Call<ListExamRoom> call = u.GetExamRoom1(token, major, complete, timestate, "0");
         call.enqueue(new Callback<ListExamRoom>() {
             @Override
             public void onResponse(Call<ListExamRoom> call, Response<ListExamRoom> response) {
@@ -232,6 +232,7 @@ public class FragmentExam extends Fragment {
             case R.id.save_select_ter:
                 //Toast.makeText(getActivity(), "你点击了 添加！", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), ExamAddActivity.class);
+                intent.putExtra("erpapertype", "0");
                 startActivityForResult(intent, 1);
                 break;
             default:
@@ -245,7 +246,7 @@ public class FragmentExam extends Fragment {
         //super.onActivityResult(requestCode, resultCode, data);
         // RESULT_OK，判断另外一个activity已经结束数据输入功能，Standard activity result:
         // operation succeeded. 默认值是-1
-        if (requestCode == 1 && resultCode == 1) {
+        if (requestCode == 1 && resultCode == 0) {
             getData();
         }
     }

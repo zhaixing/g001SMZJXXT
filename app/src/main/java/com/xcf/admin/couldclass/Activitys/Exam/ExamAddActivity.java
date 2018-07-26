@@ -3,6 +3,7 @@ package com.xcf.admin.couldclass.Activitys.Exam;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -82,7 +83,13 @@ public class ExamAddActivity extends AppCompatActivity implements View.OnClickLi
         pnum.setOnClickListener(this);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
         Date dateNow=new Date(System.currentTimeMillis());
-        et_add_exam_name.setText("练习"+simpleDateFormat.format(dateNow));
+        Intent intent = getIntent();
+        if (intent.getStringExtra("erpapertype").equals("1")) {
+            et_add_exam_name.setText("练习" + simpleDateFormat.format(dateNow));
+        } else {
+            et_add_exam_name.setText("考试" + simpleDateFormat.format(dateNow));
+        }
+
 
         getCardData();
         initCustomOptionPicker();
@@ -292,17 +299,23 @@ public class ExamAddActivity extends AppCompatActivity implements View.OnClickLi
         switch (view.getId()) {
             case R.id.submit_tv: {
                 if (isnull()) {
+                    Intent intent = getIntent();
+                    final String erpapertype = intent.getStringExtra("erpapertype");
                     SharedPreferences sp = getSharedPreferences("loginToken", Context.MODE_PRIVATE);
                     String token = sp.getString("token", null);
                     ExamServiceyhs examService = HttpHelper.getInstance().getRetrofitStr().create(ExamServiceyhs.class);
                     Call<String> call = examService.roomadd(token, et_add_exam_name.getText().toString(),
                             tvAddExamType.getText().toString(), tv_add_exam_start.getText().toString(),
                             tv_add_exam_end.getText().toString(), snum.getText().toString(), dnum.getText().toString(),
-                            pnum.getText().toString());
+                            pnum.getText().toString(), erpapertype);
                     call.enqueue(new Callback<String>() {
                         @Override
                         public void onResponse(Call<String> call, Response<String> response) {
-                            setResult(1);
+                            if (erpapertype.equals("0")) {
+                                setResult(0);
+                            } else {
+                                setResult(1);
+                            }
                             activity.finish();
                         }
 
