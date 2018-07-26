@@ -53,10 +53,6 @@ public class FragmentStudy extends Fragment {
     private ListView listView;
     SharedPreferences sp;
 
-
-
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
 

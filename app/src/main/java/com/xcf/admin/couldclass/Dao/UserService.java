@@ -43,4 +43,6 @@ public interface UserService {
     @GET("/app/user/finish.do")
     Call<String> FinishUserApp(@Query("name") String name, @Query("orgid") String orgid);
 
+    @GET("/app/user/register1.do")
+    Call<String> Register(@Query("usercode") String usercode,@Query("pwd") String pwd,@Query("username") String username);
 }

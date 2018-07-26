@@ -89,6 +89,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Call<loginuser> call = u.Login(Usercode.getText().toString(), pwd.getText().toString(), "");
                 loginin(call);
 //                avi.hide();
+                break;
+            }
+            case R.id.switch_button:{
+                Intent regIntent = new Intent(this,RegisterActivity.class);
+                startActivity(regIntent);
             }
         }
     }
