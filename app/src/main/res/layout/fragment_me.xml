@@ -127,15 +127,15 @@
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/default_user_image1"
-                    android:layout_width="99dp"
+                    android:layout_width="78dp"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="13dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_action_defaulthead"
                     app:riv_border_color="@android:color/white"
                     app:riv_border_width="2dp"
-                    app:riv_oval="true"
 
-                    />
+                    app:riv_oval="true" />
 
                 <TextView
                     android:id="@+id/btn_user"

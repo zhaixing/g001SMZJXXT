@@ -41,7 +41,7 @@ public class FragmentOne_yhs extends Fragment {
     ListView list_month;
     ListView list_quar;
     ListView list_year;
-    public AVLoadingIndicatorView avi;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -50,15 +50,13 @@ public class FragmentOne_yhs extends Fragment {
         tabHost = view.findViewById(R.id.tabhost);
         tabHost.setup();
 
-        avi = view.findViewById(R.id.avi);
-
         list_week = view.findViewById(R.id.list_week);
         list_month = view.findViewById(R.id.list_month);
         list_quar = view.findViewById(R.id.list_quarter);
         list_year = view.findViewById(R.id.list_year);
         RankService rankService = HttpHelper.getInstance().getRetrofitStr().create(RankService.class);
         Call<rankuserlist> call = rankService.Getranklist();
-        avi.smoothToShow();
+
         call.enqueue(new Callback<rankuserlist>() {
             @Override
             public void onResponse(Call<rankuserlist> call, Response<rankuserlist> response) {
