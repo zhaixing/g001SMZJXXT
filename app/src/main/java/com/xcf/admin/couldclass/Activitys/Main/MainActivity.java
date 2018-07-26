@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 case R.id.navigation_home:
                     myViewPager.setCurrentItem(0);
                     return true;
-                case R.id.navigation_friends:
+                case R.id.navigation_study:
                     myViewPager.setCurrentItem(1);
                     return true;
                 case R.id.navigation_exam:
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         //把Fragment添加到List集合里面
         fragments = new ArrayList<>();
         fragments.add(new FragmentOne_yhs());
-        fragments.add(new FragmentTwo());
+        fragments.add(new FragmentStudy());
         fragments.add(new FragmentExam());
         fragments.add(new FragmentMe());
         adapter = new TabFragmentPagerAdapter(getSupportFragmentManager(), fragments);
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case R.id.navigation_home:
                 myViewPager.setCurrentItem(0);
                 return true;
-            case R.id.navigation_friends:
+            case R.id.navigation_study:
                 myViewPager.setCurrentItem(1);
                 return true;
             case R.id.navigation_exam:
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 navigation.setSelectedItemId(R.id.navigation_home);
                 break;
             case 1:
-                navigation.setSelectedItemId(R.id.navigation_friends);
+                navigation.setSelectedItemId(R.id.navigation_study);
                 break;
             case 2:
                 navigation.setSelectedItemId(R.id.navigation_exam);

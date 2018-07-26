@@ -7,7 +7,7 @@
         android:title="主页" />
 
     <item
-        android:id="@+id/navigation_friends"
+        android:id="@+id/navigation_study"
         android:icon="@drawable/ic_action_book"
         android:title="练习" />
 
