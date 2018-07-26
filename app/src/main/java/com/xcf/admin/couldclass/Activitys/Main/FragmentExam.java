@@ -232,11 +232,22 @@ public class FragmentExam extends Fragment {
             case R.id.save_select_ter:
                 //Toast.makeText(getActivity(), "你点击了 添加！", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), ExamAddActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
                 break;
             default:
                 break;
         }
         return true;
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //super.onActivityResult(requestCode, resultCode, data);
+        // RESULT_OK，判断另外一个activity已经结束数据输入功能，Standard activity result:
+        // operation succeeded. 默认值是-1
+        if (requestCode == 1 && resultCode == 1) {
+            getData();
+        }
+    }
+
 }

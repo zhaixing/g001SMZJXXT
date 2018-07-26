@@ -24,4 +24,9 @@ public interface ExamServiceyhs {
 
     @GET("/app/exam/changecomplete.do")
     Call<String> changecomplete(@Query("userid") String userid, @Query("roomid") String roomid);
+
+    @GET("/app/exam/roomadd.do")
+    Call<String> roomadd(@Query("token") String token, @Query("roomname") String roomname, @Query("type") String type, @Query("start")
+            String start, @Query("end") String end, @Query("snum") String snum
+            , @Query("dnum") String dnum, @Query("pnum") String pnum);
 }
