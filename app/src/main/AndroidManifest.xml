@@ -34,10 +34,6 @@
             </intent-filter>
             -->
         </activity>
-        <activity
-            android:name=".Activitys.Login.loginActivity"
-            android:launchMode="singleTop" />
-        <activity android:name=".Activitys.Answer.AnswerActivity" />
         <activity android:name=".Activitys.Live.LiveActivity" />
         <activity
             android:name="io.vov.vitamio.activity.InitActivity"

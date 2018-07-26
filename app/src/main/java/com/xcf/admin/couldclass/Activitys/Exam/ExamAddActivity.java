@@ -76,6 +76,10 @@ public class ExamAddActivity extends AppCompatActivity implements View.OnClickLi
         dnum = findViewById(R.id.add_exam_duoxuan);
         pnum = findViewById(R.id.add_exam_panduan);
         et_add_exam_name = findViewById(R.id.add_exam_name);
+        et_add_exam_name.setOnClickListener(this);
+        snum.setOnClickListener(this);
+        dnum.setOnClickListener(this);
+        pnum.setOnClickListener(this);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
         Date dateNow=new Date(System.currentTimeMillis());
         et_add_exam_name.setText("练习"+simpleDateFormat.format(dateNow));
@@ -267,17 +271,18 @@ public class ExamAddActivity extends AppCompatActivity implements View.OnClickLi
 
     public boolean isnull() {
         boolean bool = true;
-        if (et_add_exam_name.getText().equals("")) {
-            Toast.makeText(this, "名称不能为空", Toast.LENGTH_SHORT);
+        if (et_add_exam_name.getText().length() == 0) {
+            Toast.makeText(this, "名称不能为空", Toast.LENGTH_SHORT).show();
             bool = false;
         }
-        if (snum.getText().equals("") && dnum.getText().equals("") && pnum.getText().equals("")) {
-            Toast.makeText(this, "至少含有1道题", Toast.LENGTH_SHORT);
+        if (snum.getText().length() == 0 || dnum.getText().length() == 0 || pnum.getText().length() == 0) {
+            Toast.makeText(this, "请输入有效的题目个数", Toast.LENGTH_SHORT).show();
             bool = false;
-        }
-        if (Integer.parseInt(snum.getText().toString()) + Integer.parseInt(dnum.getText().toString()) + Integer.parseInt(pnum.getText().toString()) == 0) {
-            Toast.makeText(this, "至少含有1道题", Toast.LENGTH_SHORT);
-            bool = false;
+        } else {
+            if (Integer.parseInt(snum.getText().toString()) + Integer.parseInt(dnum.getText().toString()) + Integer.parseInt(pnum.getText().toString()) == 0) {
+                Toast.makeText(this, "至少含有1道题", Toast.LENGTH_SHORT).show();
+                bool = false;
+            }
         }
         return bool;
     }
@@ -303,10 +308,27 @@ public class ExamAddActivity extends AppCompatActivity implements View.OnClickLi
 
                         @Override
                         public void onFailure(Call<String> call, Throwable t) {
-                            Toast.makeText(activity, MessageContext.INTNET_ERROR, Toast.LENGTH_SHORT);
+                            Toast.makeText(activity, MessageContext.INTNET_ERROR, Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
+                break;
+            }
+            case R.id.add_exam_name: {
+                et_add_exam_name.setText("");
+                break;
+            }
+            case R.id.add_exam_danxuan: {
+                snum.setText("");
+                break;
+            }
+            case R.id.add_exam_duoxuan: {
+                dnum.setText("");
+                break;
+            }
+            case R.id.add_exam_panduan: {
+                pnum.setText("");
+                break;
             }
         }
     }
