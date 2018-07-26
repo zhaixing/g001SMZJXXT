@@ -279,7 +279,7 @@ public class ExamAnswerActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    public void lastnext(String string) {
+    public void lastnext(final String string) {
         List<String> list1 = new ArrayList<>();
         if (radioButtonA.isChecked()) {
             list1.add("A");
@@ -302,6 +302,22 @@ public class ExamAnswerActivity extends AppCompatActivity implements View.OnClic
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
                     Log.e("dfdadf", "onResponse: 成功了没");
+                    if (string.equals("jiaojuan")) {
+                        Call<String> call1 = setanswer.changecomplete(userid, MyApp.roomid);
+                        call1.enqueue(new Callback<String>() {
+                            @Override
+                            public void onResponse(Call<String> call, Response<String> response) {
+                                Intent intent = new Intent(ExamAnswerActivity.this, ExamEndActivity.class);
+                                ExamAnswerActivity.this.finish();
+                                startActivity(intent);
+                            }
+
+                            @Override
+                            public void onFailure(Call<String> call, Throwable t) {
+                                Toast.makeText(ExamAnswerActivity.this, MessageContext.INTNET_ERROR, Toast.LENGTH_SHORT).show();
+                            }
+                        });//保存本页内容
+                    }
                 }
 
                 @Override
@@ -330,22 +346,6 @@ public class ExamAnswerActivity extends AppCompatActivity implements View.OnClic
             } else {
                 quesnumber += 1;
             }
-        }
-        if (string.equals("jiaojuan")) {
-            Call<String> call1 = setanswer.changecomplete(userid, MyApp.roomid);
-            call1.enqueue(new Callback<String>() {
-                @Override
-                public void onResponse(Call<String> call, Response<String> response) {
-                    Intent intent = new Intent(ExamAnswerActivity.this, ExamEndActivity.class);
-                    ExamAnswerActivity.this.finish();
-                    startActivity(intent);
-                }
-
-                @Override
-                public void onFailure(Call<String> call, Throwable t) {
-                    Toast.makeText(ExamAnswerActivity.this, MessageContext.INTNET_ERROR, Toast.LENGTH_SHORT).show();
-                }
-            });//保存本页内容
         }
         getdata();
     }

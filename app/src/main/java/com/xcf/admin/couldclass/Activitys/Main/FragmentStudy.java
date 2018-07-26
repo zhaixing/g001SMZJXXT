@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -53,6 +52,7 @@ public class FragmentStudy extends Fragment {
     private ListView listView;
     SharedPreferences sp;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -67,7 +67,7 @@ public class FragmentStudy extends Fragment {
         String token = sp.getString("token", null);
         final List<Map<String, Object>> list = new ArrayList<>();
         ExamServiceyhs u = HttpHelper.getInstance().getRetrofitStr().create(ExamServiceyhs.class);
-        Call<ListExamRoom> call = u.GetExamRoom1(token, major, complete, timestate);
+        Call<ListExamRoom> call = u.GetExamRoom1(token, major, complete, timestate, "1");
         call.enqueue(new Callback<ListExamRoom>() {
             @Override
             public void onResponse(Call<ListExamRoom> call, Response<ListExamRoom> response) {
@@ -140,7 +140,7 @@ public class FragmentStudy extends Fragment {
                 final Map<String, Object> mapall = (Map<String, Object>) parent.getItemAtPosition(position);
                 MyApp.papername = mapall.get("name").toString();
                 MyApp.roomid = mapall.get("roomid").toString();
-                ExamServiceyhs u = HttpHelper.getInstance().getRetrofitStr().create(ExamServiceyhs.class);
+                final ExamServiceyhs u = HttpHelper.getInstance().getRetrofitStr().create(ExamServiceyhs.class);
                 Call<Appques> call = u.Getpaper(sp.getString("userid", null), MyApp.roomid);
                 call.enqueue(new Callback<Appques>() {
                     @Override
@@ -150,11 +150,53 @@ public class FragmentStudy extends Fragment {
                         MyApp.questionsum = MyApp.appquesmain.getS().size() + MyApp.appquesmain.getD().size() + MyApp.appquesmain.getP().size();
                         //获取考题
                         if (mapall.get("complete").equals("已完成")) {
-                            Intent intent = new Intent(getActivity(), ExamEndActivity.class);
-                            startActivity(intent);
+                            new AlertDialog.Builder(getActivity())
+                                    .setMessage("请选择")
+                                    .setPositiveButton("重新练习", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            //清除数据库
+                                            ExamServiceyhs examServiceyhs = HttpHelper.getInstance().getRetrofitStr().create(ExamServiceyhs.class);
+                                            Call<String> call1 = examServiceyhs.clearpaper(sp.getString("userid", null), MyApp.roomid);
+                                            call1.enqueue(new Callback() {
+                                                @Override
+                                                public void onResponse(Call call, Response response) {
+                                                    Call<Appques> call2 = u.Getpaper(sp.getString("userid", null), MyApp.roomid);
+                                                    call2.enqueue(new Callback<Appques>() {
+                                                        @Override
+                                                        public void onResponse(Call<Appques> call, Response<Appques> response) {
+                                                            MyApp.appquesmain = response.body();
+                                                            Intent intent = new Intent(getActivity(), ExamStartActivity.class);
+                                                            intent.putExtra("type", mapall.get("type").toString());
+                                                            startActivity(intent);
+                                                        }
+
+                                                        @Override
+                                                        public void onFailure(Call<Appques> call, Throwable t) {
+
+                                                        }
+                                                    });
+                                                }
+
+                                                @Override
+                                                public void onFailure(Call call, Throwable t) {
+
+                                                }
+                                            });
+
+                                        }
+                                    })
+                                    .setNegativeButton("查看成绩", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            Intent intent = new Intent(getActivity(), ExamEndActivity.class);
+                                            startActivity(intent);
+                                        }
+                                    })
+                                    .show();
                         } else {
                             new AlertDialog.Builder(getActivity())
-                                    .setMessage("开始考试！")
+                                    .setMessage("开始练习！")
                                     .setPositiveButton("是", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -232,6 +274,7 @@ public class FragmentStudy extends Fragment {
             case R.id.save_select_ter:
                 //Toast.makeText(getActivity(), "你点击了 添加！", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), ExamAddActivity.class);
+                intent.putExtra("erpapertype", "1");
                 startActivityForResult(intent, 1);
                 break;
             default:
