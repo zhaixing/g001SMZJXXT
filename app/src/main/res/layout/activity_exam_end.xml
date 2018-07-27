@@ -4,103 +4,92 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <View
-        android:id="@+id/exam_endview1"
-        android:layout_width="0dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="match_parent"
 
-    <View
-        android:id="@+id/exam_endview2"
-        android:layout_width="0dp"
-        android:layout_height="11dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exam_endview1" />
+        android:layout_height="wrap_content">
 
-    <View
-        android:id="@+id/exam_endview3"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exam_endview2"
-        app:layout_constraintVertical_bias="0.0" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp">
 
-    <TextView
-        android:id="@+id/exam_end_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
-        android:dividerHeight="5dp"
-        android:text="试卷名称:  2018年阳泉站运输专业信号员第一次考试"
-        android:textAlignment="viewStart"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <LinearLayout
+                android:id="@+id/exam_end_head"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/exam_end_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="56dp"
-        android:text="交卷时间:  2018.07.13 11:03"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/exam_end_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="试卷名称:  2018年阳泉站运输专业信号员第一次考试"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/exam_end_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="80dp"
-        android:text="考试得分："
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/exam_end_score"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="80dp"
-        android:text="90分"
-        android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/exam_end_textview"
-        app:layout_constraintTop_toTopOf="parent" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-    <ListView
-        android:id="@+id/exam_end_list"
-        android:layout_width="337dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/exam_end_linearlout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.51"
-        app:layout_constraintStart_toStartOf="@+id/exam_endview3"
-        app:layout_constraintTop_toTopOf="@+id/exam_endview3" />
+                    <TextView
+                        android:id="@+id/exam_end_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:text="交卷时间:  2018.07.13 11:03" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
+                        android:text="考试得分："
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/exam_end_score"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="90分"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
 
     <LinearLayout
+        android:id="@+id/exam_end_list_linear"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/exam_end_linearlout"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView3">
+
+        <ListView
+            android:id="@+id/exam_end_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/exam_end_head"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:padding="5dp" />
+    </LinearLayout>
+    <LinearLayout
         android:id="@+id/exam_end_linearlout"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="8dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@+id/exam_endview3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
             android:id="@+id/exam_end_button1"
@@ -111,7 +100,6 @@
             android:text="全部解析"
             android:textColor="@color/white"
             android:visibility="visible" />
-
 
         <TextView
             android:id="@+id/exam_end_textview"
@@ -130,5 +118,4 @@
             android:text="错题解析"
             android:textColor="@color/white" />
     </LinearLayout>
-
 </android.support.constraint.ConstraintLayout>

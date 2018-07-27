@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -170,5 +171,27 @@ public class ExamEndActivity extends AppCompatActivity implements View.OnClickLi
         });
         button1.setOnClickListener(this);
         button2.setOnClickListener(this);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position!=0&&position!=(MyApp.appquesmain.getS().size()+1)&&position!=(MyApp.appquesmain.getS().size()+MyApp.appquesmain.getD().size()+2)){
+                    Intent it = new Intent(ExamEndActivity.this,ExamAnswerActivity.class);
+                    if (position<=MyApp.appquesmain.getS().size()){
+                        it.putExtra("position1",String.valueOf(position));
+                        it.putExtra("goit","yes");
+                    }else if (position<=(MyApp.appquesmain.getS().size()+MyApp.appquesmain.getD().size()+1)){
+                        it.putExtra("position1",String.valueOf(position-1));
+                        it.putExtra("goit","yes");
+                    }else {
+                        it.putExtra("position1",String.valueOf(position-2));
+                        it.putExtra("goit","yes");
+                    }
+                    startActivity(it);
+                }
+
+
+            }
+        });
     }
 }

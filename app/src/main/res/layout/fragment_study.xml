@@ -23,33 +23,29 @@ tools:context=".Activitys.Main.FragmentStudy">
 
         <Spinner
             android:id="@+id/exam_spin_major"
-            android:layout_width="125dp"
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_marginStart="0dp"
             android:dropDownWidth="125dp"
             android:entries="@array/categary"
-            android:textAlignment="center"
             android:overlapAnchor="false" />
 
         <Spinner
             android:id="@+id/exam_spin_complete"
-            android:layout_width="120dp"
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
+            android:layout_toEndOf="@+id/exam_spin_major"
             android:dropDownWidth="120dp"
             android:entries="@array/done"
-            android:textAlignment="center"
             android:overlapAnchor="false" />
 
         <Spinner
             android:id="@+id/exam_spin_time"
-            android:layout_width="125dp"
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
             android:dropDownWidth="125dp"
-            android:textAlignment="center"
             android:entries="@array/timeAsc"
             android:overlapAnchor="false" />
 

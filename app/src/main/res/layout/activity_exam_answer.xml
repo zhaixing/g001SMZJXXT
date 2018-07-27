@@ -5,76 +5,176 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/exam_answer_title"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
-        android:layout_marginStart="16dp"
-        android:autoLink="all"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:text="2018年阳泉站运输专业信号员第一次考试"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/exam_answer_view1"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/exam_answer_quesnum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:layout_marginStart="16dp"
-        android:paddingBottom="1dp"
-        android:text="1"
-        android:textColor="@color/blue"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/exam_answer_view1"
-        app:layout_constraintStart_toEndOf="@+id/exam_answer_title" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/exam_answer_quesnum1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
-        android:text="/30"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/exam_answer_view1"
-        app:layout_constraintStart_toEndOf="@+id/exam_answer_quesnum" />
 
-    <View
-        android:id="@+id/exam_answer_view1"
-        android:layout_width="0dp"
-        android:layout_height="79dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <LinearLayout
+                android:id="@+id/exam_name_ans"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingLeft="15dp"
+                android:paddingTop="15dp">
 
-    <View
-        android:id="@+id/exam_answer_view2"
-        android:layout_width="0dp"
-        android:layout_height="90dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exam_answer_view1" />
 
-    <TextView
-        android:id="@+id/exam_answer_ques"
-        android:layout_width="300dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="《劳动合同书》中规定，甲方违章指挥、强令冒险作业，危及乙方人身安全的，乙方（）。"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/exam_answer_view2" />
+                <TextView
+                    android:id="@+id/exam_answer_title"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:autoLink="all"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="2018年阳泉站运输专业信号员第一次考试"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/exam_answer_view1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/exam_answer_quesnum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginStart="0dp"
+                    android:paddingBottom="1dp"
+                    android:text="1"
+                    android:textColor="@color/blue"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/exam_answer_view1"
+                    app:layout_constraintStart_toEndOf="@+id/exam_answer_title" />
+
+                <TextView
+                    android:id="@+id/exam_answer_quesnum1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="0dp"
+                    android:text="/30"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/exam_answer_view1"
+                    app:layout_constraintStart_toEndOf="@+id/exam_answer_quesnum" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ans_tigan"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/exam_name_ans"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/exam_answer_ques"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="《劳动合同书》中规定，甲方违章指挥、强令冒险作业，危及乙方人身安全的，乙方（）。"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ans_abcd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ans_tigan"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <CheckBox
+                    android:id="@+id/exam_answer_radioButtonA"
+                    style="@style/CustomCheckboxTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="false"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:text="CheckBox"
+                    android:textColor="@color/black" />
+
+                <CheckBox
+                    android:id="@+id/exam_answer_radioButtonB"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:text="CheckBox"
+                    android:textColor="@color/black"
+                    style="@style/CustomCheckboxTheme"/>
+
+                <CheckBox
+                    android:id="@+id/exam_answer_radioButtonC"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:text="CheckBox"
+                    android:textColor="@color/black"
+                    style="@style/CustomCheckboxTheme"/>
+
+                <CheckBox
+                    android:id="@+id/exam_answer_radioButtonD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:text="CheckBox"
+                    android:textColor="@color/black"
+                    style="@style/CustomCheckboxTheme"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/and_right"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ans_abcd"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="正确答案："
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/exam_answer_true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="8"
+                    android:text="A"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold|italic" />
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+
+
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -127,85 +227,6 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayouttrue"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exam_answer_view2">
 
-        <CheckBox
-            android:id="@+id/exam_answer_radioButtonA"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:checked="false"
-            android:text="CheckBox"
-            android:textColor="@color/black" />
-
-        <CheckBox
-            android:id="@+id/exam_answer_radioButtonB"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:text="CheckBox"
-            android:textColor="@color/black" />
-
-        <CheckBox
-            android:id="@+id/exam_answer_radioButtonC"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:text="CheckBox"
-            android:textColor="@color/black" />
-
-        <CheckBox
-            android:id="@+id/exam_answer_radioButtonD"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:text="CheckBox"
-            android:textColor="@color/black" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayouttrue"
-        android:layout_width="368dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="16dp"
-        android:orientation="horizontal"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <TextView
-            android:id="@+id/textView12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="正确答案："
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/exam_answer_true"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="8"
-            android:text="A"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold|italic" />
-    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

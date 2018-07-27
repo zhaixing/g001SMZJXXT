@@ -130,6 +130,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onResponse(Call<loginuser> call, Response<loginuser> response) {
                 Log.d(this.getClass().toString(), "onResponse: " + response.body());
                 //System.out.println(response.body().getUsr().getUser_Id());
+                if (response.body() == null)
+                {
+                    Toast.makeText(getApplicationContext(),"网络异常",Toast.LENGTH_SHORT).show();
+                    avi.smoothToHide();
+                    return;
+                }
                 if (response.body().getbool().equals("success")) {
                     //System.out.println("ID"+response.body().getUsr().getUser_Id());
                     //将信息保存到本地

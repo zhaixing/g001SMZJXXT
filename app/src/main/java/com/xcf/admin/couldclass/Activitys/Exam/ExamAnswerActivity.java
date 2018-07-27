@@ -45,7 +45,6 @@ public class ExamAnswerActivity extends AppCompatActivity implements View.OnClic
     Button next;
     Button jiaojuan;
     LinearLayout linearLayouttrue;
-    LinearLayout linearLayout2;
     int quesnumber = 1;
     String userid; //用户id
     Long q_id;//题号
@@ -124,29 +123,28 @@ public class ExamAnswerActivity extends AppCompatActivity implements View.OnClic
         last = findViewById(R.id.exam_answer_last);
         next = findViewById(R.id.exam_answer_next);
         jiaojuan = findViewById(R.id.exam_answer_jj);
-        linearLayouttrue = findViewById(R.id.linearLayouttrue);
-        linearLayout2 = findViewById(R.id.linearLayout2);
+        linearLayouttrue = findViewById(R.id.and_right);
         Intent intent = getIntent();
         yesorno = intent.getStringExtra("goit");
-        System.out.println(yesorno);
-        if (yesorno.equals("no1")) {
-            linearLayouttrue.setVisibility(View.VISIBLE);
-            radioButtonA.setEnabled(false);
-            radioButtonB.setEnabled(false);
-            radioButtonC.setEnabled(false);
-            radioButtonD.setEnabled(false);
-            jiaojuan.setEnabled(false);
-        } else if (yesorno.equals("no2")) {
-            linearLayouttrue.setVisibility(View.VISIBLE);
-            radioButtonA.setEnabled(false);
-            radioButtonB.setEnabled(false);
-            radioButtonC.setEnabled(false);
-            radioButtonD.setEnabled(false);
-            jiaojuan.setEnabled(false);
-            if (falsei < MyApp.falselist.size()) {
-                quesnumber = MyApp.falselist.get(falsei);
+            if (yesorno.equals("no1")) {
+                linearLayouttrue.setVisibility(View.VISIBLE);
+                radioButtonA.setEnabled(false);
+                radioButtonB.setEnabled(false);
+                radioButtonC.setEnabled(false);
+                radioButtonD.setEnabled(false);
+                jiaojuan.setEnabled(false);
+            } else if (yesorno.equals("no2")) {
+                linearLayouttrue.setVisibility(View.VISIBLE);
+                radioButtonA.setEnabled(false);
+                radioButtonB.setEnabled(false);
+                radioButtonC.setEnabled(false);
+                radioButtonD.setEnabled(false);
+                jiaojuan.setEnabled(false);
+                if (falsei < MyApp.falselist.size()) {
+                    quesnumber = MyApp.falselist.get(falsei);
+                }
             }
-        }
+
         radioButtonA.setOnClickListener(this);
         radioButtonB.setOnClickListener(this);
         radioButtonC.setOnClickListener(this);
@@ -154,6 +152,13 @@ public class ExamAnswerActivity extends AppCompatActivity implements View.OnClic
         last.setOnClickListener(this);
         next.setOnClickListener(this);
         jiaojuan.setOnClickListener(this);
+
+        String position = intent.getStringExtra("position1");
+        if (position != null)
+        {
+            quesnumber=Integer.parseInt(position);
+        }
+
     }
 
     public void getdata() {
@@ -327,23 +332,25 @@ public class ExamAnswerActivity extends AppCompatActivity implements View.OnClic
         }
         list = new ArrayList<>();
         if (string.equals("last") && quesnumber != 1) {
-            if (yesorno.equals("no2")) {
-                if (falsei < MyApp.falselist.size() && falsei > 0) {
-                    falsei -= 1;
-                    quesnumber = MyApp.falselist.get(falsei);
+                if (yesorno.equals("no2")) {
+                    if (falsei < MyApp.falselist.size() && falsei > 0) {
+                        falsei -= 1;
+                        quesnumber = MyApp.falselist.get(falsei);
+                    }
                 }
-            } else {
+            else {
                 quesnumber -= 1;
             }
         }
         if (string.equals("next") && quesnumber != MyApp.questionsum) {
-            if (yesorno.equals("no2")) {
-                if (falsei < MyApp.falselist.size() - 1) {
-                    Log.e("", "lastnext: " + falsei + "size" + MyApp.falselist.size());
-                    falsei += 1;
-                    quesnumber = MyApp.falselist.get(falsei);
+                if (yesorno.equals("no2")) {
+                    if (falsei < MyApp.falselist.size() - 1) {
+                        Log.e("", "lastnext: " + falsei + "size" + MyApp.falselist.size());
+                        falsei += 1;
+                        quesnumber = MyApp.falselist.get(falsei);
+                    }
                 }
-            } else {
+            else {
                 quesnumber += 1;
             }
         }
