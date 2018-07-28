@@ -21,7 +21,7 @@ public class Splash extends AppCompatActivity {
             // 创建子线程
             public void run(){
                 try{
-                    sleep(1500);//程序休眠5秒
+                    sleep(2000);//程序休眠5秒
                     Intent intent = new Intent();
                     ComponentName comp = new ComponentName("com.xcf.admin.couldclass", "com.xcf.admin.couldclass.Activitys.Loginyhs.LoginActivity");
 //或者intent.setClassName("包名","包名.类名");
