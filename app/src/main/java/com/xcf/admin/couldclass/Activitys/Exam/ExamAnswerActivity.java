@@ -262,7 +262,7 @@ public class ExamAnswerActivity extends AppCompatActivity implements View.OnClic
             call.enqueue(new Callback<String>() {
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
-                    Log.e("dfdadf", "onResponse: 成功了没");
+                    Log.e("dfdadf", "onResponse: 记录成功了没");
                 }
                 @Override
                 public void onFailure(Call<String> call, Throwable t) {
